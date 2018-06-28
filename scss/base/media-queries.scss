@@ -1,0 +1,12 @@
+
+@mixin small-media {
+    @media only screen and (max-width: $break-1 - 0.0625){
+        @content;
+    }
+}
+
+@mixin medium-and-above {
+    @media only screen and (min-width: $break-1){
+        @content;
+    }
+}

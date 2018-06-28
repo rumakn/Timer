@@ -1,0 +1,22 @@
+.nav{
+    
+    margin-top: 20px;
+    width:100% !important;
+
+    text-align:center;
+    li{
+        display:inline-block;
+        
+    }
+    @include medium-and-above{
+        text-align: right;
+        
+    }
+}
+
+.nav > ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    
+  }
