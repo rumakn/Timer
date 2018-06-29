@@ -5,11 +5,23 @@
     max-width: 1200px;
 }
 
+/* Row */
+.row {
+    margin-right: (-$margin-gutter);
+    margin-left: (-$margin-gutter);
+  }
+  /* Row Clear Float*/
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
 [class*= 'col-' ]{
     width: 100%;
     padding-left: ($margin-gutter);
     padding-right: ($margin-gutter);
-    // float:left;
+    float:left;
     display: inline-block;
 }
 

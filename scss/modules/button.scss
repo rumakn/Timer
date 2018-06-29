@@ -9,6 +9,11 @@
     font-weight:bold;
     border-radius:4px;
 
+    background: none;
+    border: 2px;
+    color: $text-color;
+    width: 100%;
+    border: 2px solid $text-color;
 }
 
 .btn-control{

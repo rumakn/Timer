@@ -1,4 +1,9 @@
 
+html { 
+  @include set-bg-image( $background-image );
+   background: $background;
+  }
+
 // change everything to border-box
 html{
     box-sizing:border-box;
@@ -11,9 +16,9 @@ html{
 
 body{
     color:$text-color;
-    background: $background;
-    font-family: 'Lato', sans-serif;
+    font-family: 'Noto Sans', sans-serif;
     font-weight: normal;
+    min-height: 100%;
 }
 
 h1, h2, h3, a {

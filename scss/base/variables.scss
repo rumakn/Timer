@@ -1,10 +1,15 @@
 $light-grey: #FBFBFB !default;
+$purple-tra: #5DA6BF55 !default;
 $blue: #5DA6BF !default;
-$dark-grey: #505a5b !default;
+$dark-grey: #242325 !default;
+$pink : #E5766E !default;
+$purple: #8A6686 !default;
 
-$text-color: $dark-grey !default;
-$background: $blue !default;
-$widget-back: $light-grey !default;
+$text-color: $light-grey !default;
+$background: $light-grey !default;
+$background-image: url("../images/bg.jpg");
+$widget-back: $purple !default;
+
 
 
 $break-1 : 48em !default;
