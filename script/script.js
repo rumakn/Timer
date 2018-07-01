@@ -24,7 +24,7 @@ function init() {
     currentTime = sessionTime;
 
     // initial status settings 
-    statusSession = "Work";
+    statusSession = "Working";
     statusPlay = 0;
 
     // Event listener for changing between session and break
@@ -53,14 +53,14 @@ function init() {
 }
 
 function SwitchBreak(){
-   if (statusSession == "Work"){
-        statusSession = "Break";
+   if (statusSession == "Working"){
+        statusSession = "Taking Break";
        btnBreak.innerHTML = "Start Work";
        
        
    }
    else{
-        statusSession = "Work";
+        statusSession = "Working";
        btnBreak.innerHTML = "Start Break"
       
    }

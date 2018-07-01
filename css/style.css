@@ -413,12 +413,16 @@ a:hover {
 [class*='col-'] {
   width: 100%;
   padding-left: 10px;
-  padding-right: 10px;
-  float: left;
-  display: inline-block; }
+  padding-right: 10px; }
+  @media only screen and (min-width: 48em) {
+    [class*='col-'] {
+      float: left;
+      display: inline-block;
+      align: center; } }
 
-.col-1-3 {
-  width: 33.33333%; }
+@media only screen and (min-width: 48em) {
+  .col-1-3 {
+    width: 33.33333%; } }
 
 .btn {
   display: inline-block;
@@ -433,12 +437,16 @@ a:hover {
   background: none;
   border: 2px;
   color: #FBFBFB;
-  width: 100%;
   border: 2px solid #FBFBFB; }
 
 .btn-control {
   margin-left: auto;
-  margin-right: auto; }
+  margin-right: auto;
+  width: 80%;
+  margin-bottom: 10px; }
+  @media only screen and (min-width: 48em) {
+    .btn-control {
+      width: 100%; } }
 
 .widget {
   background: #8A6686;

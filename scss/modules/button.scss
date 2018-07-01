@@ -12,13 +12,19 @@
     background: none;
     border: 2px;
     color: $text-color;
-    width: 100%;
+    
     border: 2px solid $text-color;
 }
 
 .btn-control{
     margin-left:auto;
     margin-right:auto;
+    width: 80%;
+    margin-bottom: 10px;
+    @include medium-and-above {
+        width: 100%;
+        
+    }
 }
 
 // .btn-nav{
