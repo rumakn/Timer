@@ -5,7 +5,7 @@ var btnBreak, btnPlay, btnReset;
 var statusSession, statusPlay;
 var currentTime;
 var sessionTime, breakTime;
-var timerFunc;
+let countdown;
 
 function init() {
     
@@ -18,8 +18,9 @@ function init() {
     btnPlay =  document.querySelector("#btn-play");
     btnReset =  document.querySelector("#btn-reset");
 
-    sessionTime = 25;
-    breakTime = 5;
+    // times in seconds
+    sessionTime = 25 * 60;
+    breakTime = 5 * 60 ;
 
     currentTime = sessionTime;
 
@@ -29,9 +30,9 @@ function init() {
 
     // Event listener for changing between session and break
     if(btnBreak.addEventListener){
-        btnBreak.addEventListener('click', SwitchBreak)
+        btnBreak.addEventListener('click', switchBreak)
     }else{
-        btnBreak.attachEvent('onclick', SwitchBreak)
+        btnBreak.attachEvent('onclick', switchBreak)
     }
 
     // Event listener for starting timer
@@ -47,12 +48,10 @@ function init() {
     }else{
         btnReset.attachEvent('onclick', resetTimer)
     }
-
-
-    timerFunc = setInterval(myTime, 1000);
 }
 
-function SwitchBreak(){
+
+function switchBreak(){
    if (statusSession == "Working"){
         statusSession = "Taking Break";
        btnBreak.innerHTML = "Start Work";
@@ -81,19 +80,48 @@ function setPlaying(){
 }
 
 
-function myTime(){
-    
-    
+
+
+function timerFunc(seconds) {
+    clearInterval(countdown);
+    const now = Date.now();
+    const then = now +(seconds *1000);
+    displayTimeLeft(seconds);
+
+    countdown = setInterval( () => {
+       const secondsLeft = Math.round((then - Date.now() ) / 1000);
+
+        if(secondsLeft < 0){
+            clearInterval(countdown);
+            return;
+        }
+
+        displayTimeLeft(secondsLeft);
+    },1000);
+}
+
+function displayTimeLeft(seconds){
+    currentTime = seconds;
+    const minutes = Math.floor ( seconds / 60 );
+    const remainderSeconds = seconds % 60;
+    const display = `${minutes}:${remainderSeconds < 10 ? '0' : ''}${remainderSeconds}`;
+    timer.textContent =  display;
+    document.title = display;
+    console.log(countdown);
 }
 
 function startTimer(){
-
+    timerFunc(currentTime);
 }
 
 function stopTimer(){
-
+    clearInterval(countdown);
 }
 
-function resetTimer(){
 
+
+function resetTimer(){
+    
+    currentTime = sessionTime;
+    timerFunc(currentTime);
 }
