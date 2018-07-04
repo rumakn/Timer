@@ -16,9 +16,9 @@
             <!-- nav bar for mobile -->
                 <nav class = "nav">
                     <ul>
-                        <li> <a href="#" class="btn btn-nav" > Timer</a></li>
-                        <li> <a href="#" class="btn btn-nav" > Settings</a></li>
-                        <li> <a href="#" class="btn btn-nav" > About</a></li>
+                        <li> <a href="#timerWidget" class="btn btn-nav" > Timer</a></li>
+                        <li> <a href="#settingsWidget" class="btn btn-nav" > Settings</a></li>
+                        <li> <a href="#aboutWidget" class="btn btn-nav" > About</a></li>
                         <li> <a href="#" class="btn btn-nav" > Stats</a></li>
                     </ul>
                 </nav>
@@ -28,8 +28,8 @@
         <main>
             <!-- Timer section -->
             <section class = "container">
-                <div class=" widget container">
-                    <h2 class="widget-title"> Working </h2>
+                <div class=" widget container" id="timerWidget">
+                    <h2 class="widget-title"> Press Play to start Timer! </h2>
 
                     <h1 id ="timer">
                         25:00
@@ -49,15 +49,68 @@
                         </div>
                     </div>
                 </div>
-                
             </section>
-            <!-- Settings section -->
-            <section>
+            <section class = "container">
+                <div class=" widget container" id="settingsWidget">
+                    <h2> Settings </h2>
+                    <form>
+                        
+                        <fieldset>
+                            <legend>
+                                Times
+                            </legend>
 
+                            <label for="workTime">work time</label>
+                            <input type="text" name="workTime" id="workTime" autocomplete="off" autofocus value="25" />
+
+                            <br/>
+
+                            <label for="shortTime">short break time</label>
+                            <input type="text" name="shortTime" id="shortTime" autocomplete="off" autofocus value="5"/>
+
+                            <br/>
+
+                            <label for="longTime">long break time</label>
+                            <input type="text" name="longTime" id="longTime" autocomplete="off" autofocus value="10"/>
+
+                        </fieldset>
+                            
+                        <fieldset>
+                            <legend>
+                                Alerts
+                            </legend>
+
+                            <label for="alertSound">sound type</label>
+                            <select name="alertSound" id="alertSound">
+                                <option value="ding">Ding</option>
+                                <option value="jingle">Jingle</option>
+                                <option value="Tone">Tone</option>
+                                <option value="Alarm">Alarm</option>
+                            </select>
+
+                            <br/>
+
+                            <label for="volume">Volume</label>
+                            <div class="slidecontainer" >
+                                    <input type="range" name="volume" id="volume" min="1" max="100" value="50" class="slider" >
+                            </div>
+                        </fieldset>
+                        <input type="submit" value="Apply Settings" />
+                    </form>
+
+                </div>
             </section>
+
             <!-- About section  -->
-            <section>
+            <section class = "container">
+                <div class=" widget container" id="aboutWidget">
+                    <h2> Pomodoro Technique </h2>
 
+                    <p> 4 Loops of : 25 minute work session + 5 min breaks between <br/>
+                        Then 1 10-15 min break
+                    </p>
+                </div>
+                
             </section>
             <!-- History Section -->
             <section>

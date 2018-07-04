@@ -53,15 +53,17 @@ function init() {
 
 function switchBreak(){
    if (statusSession == "Working"){
-        statusSession = "Taking Break";
-       btnBreak.innerHTML = "Start Work";
-       
+    statusSession = "Taking Break";
+    btnBreak.innerHTML = "Start Work";
+    currentTime = breakTime;
+    startTimer();
        
    }
    else{
         statusSession = "Working";
        btnBreak.innerHTML = "Start Break"
-      
+      currentTime = sessionTime;
+      startTimer();
    }
    timerTitle.innerHTML = statusSession;
 }
@@ -70,12 +72,16 @@ function setPlaying(){
     if (statusPlay){
         statusPlay = 0;
         btnPlay.innerHTML = "Play";
-        stopTimer();
+        timerTitle.innerHTML = "Timer Paused";
+        pauseTimer();
+        
     }
     else{
         statusPlay = 1;
-        btnPlay.innerHTML = "Stop";
+        btnPlay.innerHTML = "Pause";
+        timerTitle.innerHTML = statusSession;
         startTimer();
+
     }
 }
 
@@ -86,7 +92,7 @@ function timerFunc(seconds) {
     clearInterval(countdown);
     const now = Date.now();
     const then = now +(seconds *1000);
-    displayTimeLeft(seconds);
+    displayTimeFormat(seconds);
 
     countdown = setInterval( () => {
        const secondsLeft = Math.round((then - Date.now() ) / 1000);
@@ -96,25 +102,24 @@ function timerFunc(seconds) {
             return;
         }
 
-        displayTimeLeft(secondsLeft);
+        displayTimeFormat(secondsLeft);
     },1000);
 }
 
-function displayTimeLeft(seconds){
+function displayTimeFormat(seconds){
     currentTime = seconds;
     const minutes = Math.floor ( seconds / 60 );
     const remainderSeconds = seconds % 60;
     const display = `${minutes}:${remainderSeconds < 10 ? '0' : ''}${remainderSeconds}`;
     timer.textContent =  display;
     document.title = display;
-    console.log(countdown);
 }
 
 function startTimer(){
     timerFunc(currentTime);
 }
 
-function stopTimer(){
+function pauseTimer(){
     clearInterval(countdown);
 }
 
@@ -123,5 +128,10 @@ function stopTimer(){
 function resetTimer(){
     
     currentTime = sessionTime;
-    timerFunc(currentTime);
+    if(statusPlay){
+        timerFunc(currentTime);
+    }
+    else{
+        displayTimeFormat(currentTime);
+    }
 }
