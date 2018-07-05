@@ -399,6 +399,9 @@ a:hover {
   margin-right: auto;
   max-width: 1200px; }
 
+.timer-buttons {
+  display: inline-block; }
+
 /* Row */
 .row {
   margin-right: -10px;
@@ -412,13 +415,17 @@ a:hover {
 
 [class*='col-'] {
   width: 100%;
-  padding-left: 10px;
-  padding-right: 10px; }
+  padding-left: 5px;
+  padding-right: 5px; }
   @media only screen and (min-width: 48em) {
     [class*='col-'] {
-      float: left;
       display: inline-block;
-      align: center; } }
+      align: center;
+      padding-left: 10px;
+      padding-right: 10px; } }
+
+.col-1-5 {
+  width: 20%; }
 
 @media only screen and (min-width: 48em) {
   .col-1-3 {
@@ -448,10 +455,17 @@ a:hover {
     .btn-control {
       width: 100%; } }
 
+.btn-timer-change {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  width: 100%;
+  white-space: normal; }
+
 .widget {
   background: #8A6686;
-  border-radius: 10px;
-  text-align: center; }
+  text-align: center;
+  padding: 20px 0px; }
 
 .widget-title {
   font-family: 'Roboto Mono', monospace; }
@@ -459,7 +473,7 @@ a:hover {
 #timer {
   font-size: 5em;
   font-family: 'Roboto Mono', monospace;
-  margin: .5em 0em; }
+  margin: 0em 0em .3em 0em; }
 
 #timer-bar {
   margin: 20px; }

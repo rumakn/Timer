@@ -4,6 +4,9 @@
     margin-right:auto;
     max-width: 1200px;
 }
+.timer-buttons{
+    display:inline-block;
+}
 
 /* Row */
 .row {
@@ -19,19 +22,24 @@
 
 [class*= 'col-' ]{
     width: 100%;
-    padding-left: ($margin-gutter);
-    padding-right: ($margin-gutter);
+    padding-left: ($margin-gutter) / 2;
+    padding-right: ($margin-gutter) / 2;
     @include medium-and-above{
-        float:left;
         display: inline-block;
         align:center;
+        padding-left: ($margin-gutter);
+        padding-right: ($margin-gutter);
     }
 }
+.col-1-5{
+    width:(100% / 5) + ($margin-gutter);
+}
 @include medium-and-above{
-.col-1-3{
-    width: (100% / 3);
+    .col-1-3{
+        width: (100% / 3);
+    }
 }
-}
+
 
 
 
