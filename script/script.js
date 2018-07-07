@@ -1,11 +1,14 @@
 window.onload = init;
 
 var timerTitle;
-var btnBreak, btnPlay, btnReset;
-var statusSession, statusPlay;
-var currentTime;
-var sessionTime, breakTime;
+var btnBreak, btnStart, btnReset;
+var btnWork, btnShort, btnLong, btnCustom1, btnCustom2;
+var statusSession, statusStart;
+var currentTime, startingTime;
+var sessionTime, breakTime, breakTimeLong, customTime1, customTime2;
 let countdown;
+var buttons; 
+
 
 function init() {
     
@@ -15,70 +18,102 @@ function init() {
     timer = document.querySelector("#timer");
 
     btnBreak =  document.querySelector("#btn-break");
-    btnPlay =  document.querySelector("#btn-play");
+    btnStart =  document.querySelector("#btn-start");
     btnReset =  document.querySelector("#btn-reset");
 
+
+    btnWork =  document.querySelector("#btn-work");
+    btnShort =  document.querySelector("#btn-short");
+    btnLong =  document.querySelector("#btn-long");
+    btnCustom1 =  document.querySelector("#btn-cust-1");
+    btnCustom2 =  document.querySelector("#btn-cust-2");
+    buttonsTime = [btnWork, btnShort, btnLong, btnCustom1, btnCustom2];
     // times in seconds
     sessionTime = 25 * 60;
     breakTime = 5 * 60 ;
 
     currentTime = sessionTime;
+    startingTime = currentTime;
 
     // initial status settings 
     statusSession = "Working";
-    statusPlay = 0;
+    statusStart = 0;
 
-    // Event listener for changing between session and break
-    if(btnBreak.addEventListener){
-        btnBreak.addEventListener('click', switchBreak)
+    buttonListenerSetup()
+    
+}
+
+function buttonListenerSetup(){
+    
+    if(btnStart.addEventListener){
+        btnStart.addEventListener('click', setStatus)
     }else{
-        btnBreak.attachEvent('onclick', switchBreak)
+        // internet explorer < 9
+        btnStart.attachEvent('onclick', setStatus)
     }
-
-    // Event listener for starting timer
-    if(btnPlay.addEventListener){
-        btnPlay.addEventListener('click', setPlaying)
-    }else{
-        btnPlay.attachEvent('onclick', setPlaying)
-    }
-
-    // Event listener for starting timer
     if(btnReset.addEventListener){
         btnReset.addEventListener('click', resetTimer)
     }else{
+        // internet explorer < 9
         btnReset.attachEvent('onclick', resetTimer)
     }
+    buttonsTime.forEach(function(element) {
+        
+        if(element.addEventListener){
+            element.addEventListener('click', changeCurrentTime)
+        }else{
+            // internet explorer < 9
+            element.attachEvent('onclick', changeCurrentTime);
+        }
+     }
+    )
 }
 
+function changeCurrentTime(){
+    var seconds = parseInt(this.dataset.time) * 60;
+    currentTime = seconds;
+    if(statusStart){
+        timerFunc(currentTime);
+    }
+    else{
+        displayTimeFormat(currentTime);
+    }
+    switchBreak(this);
+}
 
-function switchBreak(){
-   if (statusSession == "Working"){
-    statusSession = "Taking Break";
-    btnBreak.innerHTML = "Start Work";
-    currentTime = breakTime;
-    startTimer();
-       
-   }
-   else{
-        statusSession = "Working";
-       btnBreak.innerHTML = "Start Break"
-      currentTime = sessionTime;
-      startTimer();
-   }
+function switchBreak(selectedButton){
+    
+    if(selectedButton.id == "btn-work"){
+        statusSession = "Work";
+    }
+    else if(selectedButton.id == "btn-short"){
+        statusSession = "Short Break";
+    }
+    else if(selectedButton.id == "btn-long"){
+        statusSession = "Long Break";
+    }
+    else if(selectedButton.id == "btn-cust-1"){
+        statusSession = "Custom Timer 1";
+    }
+    else{
+        statusSession = "Custom Timer 2";
+    }
+
+
    timerTitle.innerHTML = statusSession;
 }
 
-function setPlaying(){
-    if (statusPlay){
-        statusPlay = 0;
-        btnPlay.innerHTML = "Play";
+function setStatus(){
+    if (statusStart){
+        statusStart = 0;
+        btnStart.innerHTML = "Start";
         timerTitle.innerHTML = "Timer Paused";
         pauseTimer();
         
     }
     else{
-        statusPlay = 1;
-        btnPlay.innerHTML = "Pause";
+        statusStart = 1;
+        btnStart.innerHTML = "Pause";
         timerTitle.innerHTML = statusSession;
         startTimer();
 
@@ -93,7 +128,7 @@ function timerFunc(seconds) {
     const now = Date.now();
     const then = now +(seconds *1000);
     displayTimeFormat(seconds);
-
+    startingTime = currentTime;
     countdown = setInterval( () => {
        const secondsLeft = Math.round((then - Date.now() ) / 1000);
 
@@ -127,11 +162,12 @@ function pauseTimer(){
 
 function resetTimer(){
     
-    currentTime = sessionTime;
-    if(statusPlay){
+    currentTime = startingTime;
+    if(statusStart){
         timerFunc(currentTime);
     }
     else{
         displayTimeFormat(currentTime);
     }
 }
+
