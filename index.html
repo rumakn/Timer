@@ -38,10 +38,11 @@
                             
                                     <button id= "btn-cust-1" data-time="0" class="btn btn-dark btn-timer-change"> + </button>
                             
-                                    <button id= "btn-cust-2" data-time="0" class="btn btn-dark btn-timer-change"> + </button>
+                                    <button id= "btn-cust-2" data-time="0" class="btn btn-greyed btn-timer-change " disabled> + </button>
                             </div>
                     </div>
             </section>
+            
             <section class = "container">
                 
                 <div class=" widget" id="timerWidget">
@@ -66,7 +67,7 @@
                 </div>
             </section>
             <section class = "container">
-                <div class=" widget container" id="settingsWidget">
+                <div class=" widget container widget-light" id="settingsWidget">
                     <h2> Settings </h2>
                     <form>
                         
@@ -118,7 +119,7 @@
 
             <!-- About section  -->
             <section class = "container">
-                <div class=" widget container" id="aboutWidget">
+                <div class=" widget container widget-light" id="aboutWidget">
                     <h2> Pomodoro Technique </h2>
 
                     <p> 4 Loops of : 25 minute work session + 5 min breaks between <br/>
@@ -131,7 +132,22 @@
             <section>
 
             </section>
-
+            <div id="myModal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="close">&times;</span>
+                        <h2>Modal Header</h2>
+                    </div>
+                    <div class="modal-body">
+                        <p>Some text in the Modal Body</p>
+                        <p>Some other text...</p>
+                    </div>
+                    <div class="modal-footer">
+                        <h3>Modal Footer</h3>
+                    </div>
+                </div>
+            </div>
         </main>
 
         <footer>

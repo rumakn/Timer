@@ -447,11 +447,16 @@ a:hover {
   color: #FBFBFB;
   border: 2px solid #FBFBFB; }
 
+.btn-greyed {
+  background: none;
+  color: #D3C4D6;
+  border: 2px solid #D3C4D6;
+  cursor: default; }
+
 .btn-dark {
   background: none;
-  border: 2px;
-  color: #8A6686;
-  border: 2px solid #8A6686; }
+  color: rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(0, 0, 0, 0.6); }
 
 .btn-control {
   margin-left: auto;
@@ -473,7 +478,7 @@ a:hover {
   padding: 10px 0px; }
 
 #timerWidget {
-  background-color: #8A6686;
+  background-color: rgba(0, 0, 0, 0.6);
   background-image: url("../images/bg.jpeg");
   background-repeat: no-repeat;
   background-position: center;
@@ -481,6 +486,9 @@ a:hover {
 
 .widget-title {
   font-family: 'Roboto Mono', monospace; }
+
+.widget-light {
+  color: #242325; }
 
 #timer {
   font-size: 5em;
@@ -504,3 +512,71 @@ a:hover {
   list-style: none;
   padding: 0px;
   margin: 0px; }
+
+.modal {
+  display: none;
+  /* hidden modal by defualt */
+  position: fixed;
+  /* fixed location */
+  z-index: 2;
+  /* on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  /* enables scroll */
+  background-color: #FBFBFB;
+  /* fallback color */
+  background-color: rgba(0, 0, 0, 0.6);
+  /* black with opacity */ }
+
+/* Modal Header */
+.modal-header {
+  padding: 2px 16px;
+  background-color: #8A6686;
+  color: white; }
+
+/* Modal Body */
+.modal-body {
+  padding: 2px 16px;
+  color: #242325; }
+
+/* Modal Footer */
+.modal-footer {
+  padding: 2px 16px;
+  background-color: #8A6686;
+  color: white; }
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 80%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  animation-name: animatetop;
+  animation-duration: 0.4s; }
+
+/* Add Animation */
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0; }
+  to {
+    top: 0;
+    opacity: 1; } }
+
+.close {
+  color: #D3C4D6;
+  float: right;
+  font-size: 28px;
+  font-weight: bold; }
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer; }

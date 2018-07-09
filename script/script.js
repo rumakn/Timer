@@ -1,33 +1,40 @@
 window.onload = init;
 
 var timerTitle;
-var btnBreak, btnStart, btnReset;
+var btnStart, btnReset;
 var btnWork, btnShort, btnLong, btnCustom1, btnCustom2;
 var statusSession, statusStart;
 var currentTime, startingTime;
 var sessionTime, breakTime, breakTimeLong, customTime1, customTime2;
 let countdown;
 var buttons; 
-
+var modal, closeBtn;
 
 function init() {
-    
+    // document queries
 
+    /* widget specific */
     timerTitle =  document.querySelector(".widget-title");
-
+    /* timer */
     timer = document.querySelector("#timer");
 
-    btnBreak =  document.querySelector("#btn-break");
+    /* controls for current timer */
+    
     btnStart =  document.querySelector("#btn-start");
     btnReset =  document.querySelector("#btn-reset");
 
-
+    /* controls to change timer start times */
     btnWork =  document.querySelector("#btn-work");
     btnShort =  document.querySelector("#btn-short");
     btnLong =  document.querySelector("#btn-long");
     btnCustom1 =  document.querySelector("#btn-cust-1");
     btnCustom2 =  document.querySelector("#btn-cust-2");
     buttonsTime = [btnWork, btnShort, btnLong, btnCustom1, btnCustom2];
+
+    /* modal  */
+    modal = document.querySelector("#myModal");
+    closeBtn = document.querySelector(".close");
+
     // times in seconds
     sessionTime = 25 * 60;
     breakTime = 5 * 60 ;
@@ -46,21 +53,22 @@ function init() {
 function buttonListenerSetup(){
     
     if(btnStart.addEventListener){
-        btnStart.addEventListener('click', setStatus)
+        btnStart.addEventListener('click', setStatus);
     }else{
         // internet explorer < 9
-        btnStart.attachEvent('onclick', setStatus)
+        btnStart.attachEvent('onclick', setStatus);
     }
     if(btnReset.addEventListener){
-        btnReset.addEventListener('click', resetTimer)
+        btnReset.addEventListener('click', resetTimer);
     }else{
         // internet explorer < 9
-        btnReset.attachEvent('onclick', resetTimer)
+        btnReset.attachEvent('onclick', resetTimer);
     }
+
     buttonsTime.forEach(function(element) {
         
         if(element.addEventListener){
-            element.addEventListener('click', changeCurrentTime)
+            element.addEventListener('click', changeCurrentTime);
         }else{
             // internet explorer < 9
             element.attachEvent('onclick', changeCurrentTime);
@@ -69,7 +77,46 @@ function buttonListenerSetup(){
     )
 }
 
+function closeModal(){
+    modal.style.display = "none";
+}
+function openModal(){
+    modal.style.display = "block";
+
+
+    if(closeBtn.addEventListener){
+        closeBtn.addEventListener('click', closeModal);
+    }else{
+        // internet explorer < 9
+        closeBtn.attachEvent('onclick', closeModal);
+    }
+    
+    if(window.addEventListener){
+        window.addEventListener('click', () => {
+            if(event.target == modal){
+                closeModal();
+            }
+        });
+    }else{
+        // internet explorer < 9
+        window.attachEvent('onclick', () => {
+            if(event.target == modal){
+                closeModal();
+            }
+        });
+    }
+}
+
+
+
 function changeCurrentTime(){
+    if(this.classList.contains('btn-greyed')){
+        return false;
+    }
+    if(this.innerHTML == " + "){
+        openModal();
+        return false;
+    }
     var seconds = parseInt(this.dataset.time) * 60;
     currentTime = seconds;
     if(statusStart){
@@ -80,6 +127,7 @@ function changeCurrentTime(){
     }
     switchBreak(this);
 }
+
 
 function switchBreak(selectedButton){
     
