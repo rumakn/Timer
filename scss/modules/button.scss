@@ -17,16 +17,10 @@
     border: 2px solid $text-color;
 }
 .btn-greyed{
-    background: none;
-    color: $button-greyed;
-    border: 2px solid $button-greyed;
+    opacity: .5;
     cursor: default;
 }
-.btn-dark{
-    background: none;
-    color: $timer-change-button;
-    border: 2px solid $timer-change-button;
-}
+
 .btn-control{
     margin-left:auto;
     margin-right:auto;
@@ -44,8 +38,3 @@
     white-space: normal;
     
 }
-
-
-// .btn-nav{
-//     // color here
-// }

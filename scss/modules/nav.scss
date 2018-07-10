@@ -1,6 +1,6 @@
 .nav{
     
-    margin-top: 20px;
+    margin: 20px 0px;
     width:100% !important;
 
     text-align:center;
@@ -18,5 +18,14 @@
     list-style: none;
     padding: 0px;
     margin: 0px;
-    
+    color: $text-color;
+  }
+
+  .nav > ul > li a, .nav > ul > li a:visited{
+    color: $nav-text;
+    text-decoration:none;
+  }
+  .nav > ul > li a:hover, 
+  .nav > ul > li a:focus{
+      text-decoration:underline;
   }

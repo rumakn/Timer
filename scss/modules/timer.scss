@@ -3,8 +3,16 @@
     font-size: 5em;
     font-family: 'Roboto Mono', monospace;
     margin: 0em 0em .3em 0em;
+    
 }
 
-#timer-bar{
-    margin: 20px;
+#timerWidget{
+    background-color: $widget-back;
+    background-image: $background-image;
+    background-repeat: no-repeat;
+    // background-attachment: fixed;
+    background-position: -120px -220px;
+    background-size: auto;
+    border-radius: 5px;
+    padding: 20px 0px 60px 0px;
 }

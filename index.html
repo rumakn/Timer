@@ -26,28 +26,22 @@
         </header>
 
         <main>
-            <!-- Timer section -->
-            <section class = "container">
-                    <div class = " widget">
-                            <div class ="timer-buttons">
-                                    <button id= "btn-work" data-time="25" class="btn btn-dark btn-timer-change"> 25 min</button>
-                           
-                                    <button id= "btn-short" data-time="5" class="btn btn-dark btn-timer-change"> 5 min</button>
-                            
-                                    <button id= "btn-long" data-time="10" class="btn btn-dark btn-timer-change"> 10 min</button>
-                            
-                                    <button id= "btn-cust-1" data-time="0" class="btn btn-dark btn-timer-change"> + </button>
-                            
-                                    <button id= "btn-cust-2" data-time="0" class="btn btn-greyed btn-timer-change " disabled> + </button>
-                            </div>
-                    </div>
-            </section>
             
             <section class = "container">
                 
                 <div class=" widget" id="timerWidget">
+                    <div class ="timer-buttons">
+                        <button id= "btn-work" data-time="25" class="btn btn-light btn-timer-change"> 25 min</button>
+               
+                        <button id= "btn-short" data-time="5" class="btn btn-light btn-timer-change"> 5 min</button>
+                
+                        <button id= "btn-long" data-time="10" class="btn btn-light btn-timer-change"> 10 min</button>
+                
+                        <button id= "btn-cust-1" data-time="0" class="btn btn-light btn-timer-change"> + </button>
+                
+                        <button id= "btn-cust-2" data-time="0" class="btn btn-light btn-greyed btn-timer-change " disabled> + </button>
+                    </div>
                     
-                    <!-- <hr> -->
                     <h2 class="widget-title"> Start Timer! </h2>
                     
                     
@@ -66,6 +60,14 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Timer section -->
+            <section class = "container">
+                <div class = " widget">
+                        
+                </div>
+        </section>
+        
             <section class = "container">
                 <div class=" widget container widget-light" id="settingsWidget">
                     <h2> Settings </h2>
@@ -137,14 +139,58 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <span class="close">&times;</span>
-                        <h2>Modal Header</h2>
+                        <h2>New Custom Timer</h2>
                     </div>
                     <div class="modal-body">
-                        <p>Some text in the Modal Body</p>
-                        <p>Some other text...</p>
+                        <form id = "form-cust-1">
+                        
+                            <fieldset>
+                                <legend>
+                                    Times
+                                </legend>
+    
+                                <label for="workTime">work time</label>
+                                <input type="text" name="workTime" id="workTime" autocomplete="off" autofocus value="25" />
+    
+                                <br/>
+    
+                                <label for="shortTime">short break time</label>
+                                <input type="text" name="shortTime" id="shortTime" autocomplete="off" autofocus value="5"/>
+
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>
+                                    Alerts
+                                </legend>
+    
+                                <label for="alertSound">sound type</label>
+                                <select name="alertSound" id="alertSound">
+                                    <option value="ding">Ding</option>
+                                    <option value="jingle">Jingle</option>
+                                    <option value="Tone">Tone</option>
+                                    <option value="Alarm">Alarm</option>
+                                </select>
+    
+                                <br/>
+    
+                                <label for="volume">Volume</label>
+                                <div class="slidecontainer" >
+                                        <input type="range" name="volume" id="volume" min="1" max="100" value="50" class="slider" >
+                                </div>
+                            </fieldset>
+                            
+                        </form>
                     </div>
                     <div class="modal-footer">
-                        <h3>Modal Footer</h3>
+                        
+                            <button id= "btn-save-custom" class="btn btn-light"> Save </button>
+                       
+                            <button id= "btn-reset-custom" class="btn btn-light"> Reset </button>
+                       
+                            <button id= "btn-cancel-custom" class="btn btn-light"> Cancel </button>
+                       
+
                     </div>
                 </div>
             </div>

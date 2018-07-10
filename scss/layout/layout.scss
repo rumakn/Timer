@@ -1,14 +1,17 @@
 .container{
-    padding: 5px 20px;
+    padding: 20px 20px;
     margin-left:auto;
     margin-right:auto;
     max-width: 1200px;
+    main & {
+        background: $background;
+    }
 }
 .timer-buttons{
     display:flex;
     flex-direction: row;
     justify-content: center;
-    
+    padding: 5px 0px 130px 0px;
 }
 
 /* Row */

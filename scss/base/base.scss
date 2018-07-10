@@ -1,12 +1,10 @@
 
-html { 
-  @include set-bg-image( $background-image );
-   background: $background;
-  }
+
 
 // change everything to border-box
 html{
     box-sizing:border-box;
+    background:$html-back;
 }
 *, *:before, *:after {
     box-sizing: inherit;
@@ -19,6 +17,8 @@ body{
     font-family: 'Noto Sans', sans-serif;
     font-weight: normal;
     min-height: 100%;
+    
+    
 }
 
 h1, h2, h3, a {
@@ -28,3 +28,6 @@ h1, h2, h3, a {
   a:hover {
     text-decoration: underline;
   }
+  
+
+ 
