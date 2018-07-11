@@ -394,11 +394,14 @@ a:hover {
   main .container {
     background: #F2F2F2; }
 
-.timer-buttons {
+.button-flex {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  padding: 5px 0px 130px 0px; }
+  padding: 10px 0px; }
+
+.bottom-pad {
+  padding-bottom: 120px; }
 
 /* Row */
 .row {
@@ -422,6 +425,9 @@ a:hover {
       padding-left: 10px;
       padding-right: 10px; } }
 
+.col-1-5 {
+  width: 20%; }
+
 @media only screen and (min-width: 48em) {
   .col-1-3 {
     width: 33.33333%; } }
@@ -443,6 +449,12 @@ a:hover {
   color: #F2F2F2;
   border: 2px solid #F2F2F2; }
 
+.btn-dark {
+  background: none;
+  border: 2px;
+  color: #8A6686;
+  border: 2px solid #8A6686; }
+
 .btn-greyed {
   opacity: .5;
   cursor: default; }
@@ -456,7 +468,7 @@ a:hover {
     .btn-control {
       width: 100%; } }
 
-.btn-timer-change {
+.btn-second {
   margin-left: 5px;
   margin-right: 5px;
   width: 100%;
@@ -521,8 +533,6 @@ a:hover {
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
-  /* enables scroll */
   background-color: #F2F2F2;
   /* fallback color */
   background-color: rgba(0, 0, 0, 0.6);
@@ -531,32 +541,37 @@ a:hover {
 
 /* Modal Header */
 .modal-header {
-  padding: 2px 16px;
-  background-color: #E8E5E5;
-  color: white; }
+  padding: 15px 16px;
+  background-color: #F2F2F2;
+  color: #8A6686; }
 
 /* Modal Body */
 .modal-body {
-  padding: 2px 16px;
-  color: #4A484C; }
+  padding: 30px 16px;
+  color: #4A484C;
+  overflow: auto; }
 
 /* Modal Footer */
 .modal-footer {
-  padding: 2px 16px;
-  background-color: #E8E5E5;
-  color: white; }
+  padding: 15px 16px;
+  background-color: #F2F2F2;
+  color: #8A6686; }
 
 /* Modal Content */
 .modal-content {
   position: relative;
   background-color: #fefefe;
-  margin: auto;
+  margin: 150px auto;
   padding: 0;
   border: 1px solid #888;
-  width: 50%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   animation-name: animatetop;
-  animation-duration: 0.4s; }
+  animation-duration: 0.4s;
+  border-radius: 10px;
+  overflow: hidden; }
+  @media only screen and (min-width: 48em) {
+    .modal-content {
+      width: 50%; } }
 
 /* Add Animation */
 @keyframes animatetop {
@@ -581,3 +596,13 @@ a:hover {
 
 form {
   text-align: left; }
+
+input {
+  width: 50%;
+  display: block; }
+  input[type=number], input[type=text] {
+    padding: 15px 20px;
+    margin: 8px 0; }
+  input[type=checkbox] {
+    display: inline-block;
+    width: auto; }

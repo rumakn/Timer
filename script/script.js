@@ -1,14 +1,17 @@
 window.onload = init;
 
-var timerTitle;
+
 var btnStart, btnReset;
-var btnWork, btnShort, btnLong, btnCustom1, btnCustom2;
-var statusSession, statusStart;
-var currentTime, startingTime;
-var sessionTime, breakTime, breakTimeLong, customTime1, customTime2;
-let countdown;
-var buttons; 
-var modal, closeBtn;
+var btnWork, btnShort, btnLong, btnCustom1, btnCustom2, buttons;
+
+var timerTitle;
+var statusSession, statusStart; /* start/play button status and type of timer */
+var currentTime, startingTime; /* hold current time and starting time for reset */
+let countdown; /* holds the interval timer */
+var modal, closeBtn, btnModalSave, btnModalReset, btnModalCancel;
+var modalTime, modalTag, modaldefault, modalSound, modalVolume;
+var Timers;
+
 
 function init() {
     // document queries
@@ -31,23 +34,75 @@ function init() {
     btnCustom2 =  document.querySelector("#btn-cust-2");
     buttonsTime = [btnWork, btnShort, btnLong, btnCustom1, btnCustom2];
 
-    /* modal  */
+ /* modal  */
     modal = document.querySelector("#myModal");
     closeBtn = document.querySelector(".close");
+    /* modal buttons */
+    btnModalSave = document.querySelector("#btn-modal-save");
+    btnModalReset = document.querySelector("#btn-modal-reset");
+    btnModalCancel = document.querySelector("#btn-modal-cancel");
 
-    // times in seconds
-    sessionTime = 25 * 60;
-    breakTime = 5 * 60 ;
+    /* modal input */
+    modalTime = document.querySelector("#modalTime");
+    modalTag = document.querySelector("modalTag");
+    modaldefault = document.querySelector("modalDefault");
+    modalSound = document.querySelector("modalSound");
+    modalVolume = document.querySelector("modalVolume");
 
-    currentTime = sessionTime;
+    initTimers();
+
+
+   
+
+    currentTime = Timers[0].time * 60;
     startingTime = currentTime;
 
     // initial status settings 
-    statusSession = "Working";
-    statusStart = 0;
+    statusSession = 0; /* value of selected timer, same is Timers index*/
+    statusStart = false; /* whether timer is paused or started */
 
     buttonListenerSetup()
     
+}
+
+function initTimers(){
+    Timers = [
+        {
+            name: "Work",
+            time: 25,
+            defaultSound: true,
+            soundType: "Ding", 
+            volume: 100
+        },
+        {
+            name: "Short Break",
+            time: 5,
+            defaultSound: true,
+            soundType: "Ding", 
+            volume: 100
+        },
+        {
+            name: "Long Break",
+            time: 15,
+            defaultSound: true,
+            soundType: "Ding", 
+            volume: 100
+        },
+        {
+            name: "Custom Timer 1",
+            time: 25,
+            defaultSound: true,
+            soundType: "Ding", 
+            volume: 100
+        },
+        {
+            name: "Custom Timer 2",
+            time: 25,
+            defaultSound: true,
+            soundType: "Ding", 
+            volume: 100
+        }
+    ]
 }
 
 function buttonListenerSetup(){
@@ -105,10 +160,45 @@ function openModal(){
             }
         });
     }
+
+    if(btnModalSave.addEventListener){
+        btnModalSave.addEventListener('click', saveCustom);
+    }else{
+        // internet explorer < 9
+        btnModalSave.attachEvent('onclick', saveCustom);
+    }
+    if(btnModalReset.addEventListener){
+        btnModalReset.addEventListener('click', resetModal);
+    }else{
+        // internet explorer < 9
+        btnModalReset.attachEvent('onclick', resetModal);
+    }
+    if(btnModalCancel.addEventListener){
+        btnModalCancel.addEventListener('click', closeModal);
+    }else{
+        // internet explorer < 9
+        btnModalCancel.attachEvent('onclick', closeModal);
+    }
 }
 
+function saveCustom(){
+    // check form is filled
 
 
+    // get the filled in form values
+    // if custom 1 button 
+    // fill custom 1 values 
+    // change custom 1 button values 
+    // un disable second custom
+
+    // if custom 2
+    // fill custom 2 values
+    // change button 
+    closeModal();
+}
+function resetModal(){
+    // set back to default when opened
+}
 function changeCurrentTime(){
     if(this.classList.contains('btn-greyed')){
         return false;
@@ -132,37 +222,37 @@ function changeCurrentTime(){
 function switchBreak(selectedButton){
     
     if(selectedButton.id == "btn-work"){
-        statusSession = "Work";
+        statusSession = 0;
     }
     else if(selectedButton.id == "btn-short"){
-        statusSession = "Short Break";
+        statusSession = 1;
     }
     else if(selectedButton.id == "btn-long"){
-        statusSession = "Long Break";
+        statusSession = 2;
     }
     else if(selectedButton.id == "btn-cust-1"){
-        statusSession = "Custom Timer 1";
+        statusSession = 3;
     }
     else{
-        statusSession = "Custom Timer 2";
+        statusSession = 4;
     }
 
 
-   timerTitle.innerHTML = statusSession;
+   timerTitle.innerHTML = Timers[statusSession].name;
 }
 
 function setStatus(){
     if (statusStart){
-        statusStart = 0;
+        statusStart = false;
         btnStart.innerHTML = "Start";
         timerTitle.innerHTML = "Timer Paused";
         pauseTimer();
         
     }
     else{
-        statusStart = 1;
+        statusStart = true;
         btnStart.innerHTML = "Pause";
-        timerTitle.innerHTML = statusSession;
+        timerTitle.innerHTML = Timers[statusSession].name;
         startTimer();
 
     }

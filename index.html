@@ -30,16 +30,16 @@
             <section class = "container">
                 
                 <div class=" widget" id="timerWidget">
-                    <div class ="timer-buttons">
-                        <button id= "btn-work" data-time="25" class="btn btn-light btn-timer-change"> 25 min</button>
+                    <div class ="button-flex bottom-pad">
+                        <button id= "btn-work" data-time="25" class="btn btn-light btn-second"> 25 min</button>
                
-                        <button id= "btn-short" data-time="5" class="btn btn-light btn-timer-change"> 5 min</button>
+                        <button id= "btn-short" data-time="5" class="btn btn-light btn-second"> 5 min</button>
                 
-                        <button id= "btn-long" data-time="10" class="btn btn-light btn-timer-change"> 10 min</button>
+                        <button id= "btn-long" data-time="10" class="btn btn-light btn-second"> 10 min</button>
                 
-                        <button id= "btn-cust-1" data-time="0" class="btn btn-light btn-timer-change"> + </button>
+                        <button id= "btn-cust-1" data-time="0" class="btn btn-light btn-second"> + </button>
                 
-                        <button id= "btn-cust-2" data-time="0" class="btn btn-light btn-greyed btn-timer-change " disabled> + </button>
+                        <button id= "btn-cust-2" data-time="0" class="btn btn-light btn-greyed btn-second " disabled> + </button>
                     </div>
                     
                     <h2 class="widget-title"> Start Timer! </h2>
@@ -146,16 +146,16 @@
                         
                             <fieldset>
                                 <legend>
-                                    Times
+                                    General
                                 </legend>
     
-                                <label for="workTime">work time</label>
-                                <input type="text" name="workTime" id="workTime" autocomplete="off" autofocus value="25" />
+                                <label for="modalTime">time</label>
+                                <input type="number" name="modalTime" id="modalTime" autocomplete="off" autofocus value="25" />
     
                                 <br/>
     
-                                <label for="shortTime">short break time</label>
-                                <input type="text" name="shortTime" id="shortTime" autocomplete="off" autofocus value="5"/>
+                                <label for="modalTag">tag</label>
+                                <input type="text" name="modalTag" id="modalTag" autocomplete="off" autofocus value="Custom Timer"/>
 
                             </fieldset>
 
@@ -163,9 +163,11 @@
                                 <legend>
                                     Alerts
                                 </legend>
-    
-                                <label for="alertSound">sound type</label>
-                                <select name="alertSound" id="alertSound">
+                                <label for="modalDefault"> use default? </label>
+                                <input type="checkbox" name="modalDefault" id="modalDefault" autofocus value="true"/>
+                                <br>
+                                <label for="modalSound">sound type : </label>
+                                <select name="modalSound" id="modalSound">
                                     <option value="ding">Ding</option>
                                     <option value="jingle">Jingle</option>
                                     <option value="Tone">Tone</option>
@@ -174,22 +176,22 @@
     
                                 <br/>
     
-                                <label for="volume">Volume</label>
+                                <label for="modalVolume">Volume</label>
                                 <div class="slidecontainer" >
-                                        <input type="range" name="volume" id="volume" min="1" max="100" value="50" class="slider" >
+                                        <input type="range" name="modalVolume" id="modalVolume" min="1" max="100" value="50" class="slider" >
                                 </div>
                             </fieldset>
                             
                         </form>
                     </div>
                     <div class="modal-footer">
-                        
-                            <button id= "btn-save-custom" class="btn btn-light"> Save </button>
-                       
-                            <button id= "btn-reset-custom" class="btn btn-light"> Reset </button>
-                       
-                            <button id= "btn-cancel-custom" class="btn btn-light"> Cancel </button>
-                       
+                        <div class ="button-flex">
+                                <button id= "btn-modal-save" class="btn btn-second btn-dark"> Save </button>
+                           
+                                <button id= "btn-modal-reset" class="btn btn-second btn-dark"> Reset </button>
+                            
+                                <button id= "btn-modal-cancel" class="btn btn-second btn-dark"> Cancel </button>
+                            </div>
 
                     </div>
                 </div>

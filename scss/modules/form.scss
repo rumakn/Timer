@@ -1,3 +1,15 @@
 form{
     text-align:left;
 }
+input{
+    width:50%;
+    display:block;
+&[type = number],&[type = text]{
+        padding: 15px 20px;
+        margin: 8px 0;
+    }
+ &[type = checkbox] {
+     display:inline-block;
+     width:auto;
+ }  
+}

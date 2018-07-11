@@ -7,13 +7,15 @@
         background: $background;
     }
 }
-.timer-buttons{
+.button-flex{
     display:flex;
     flex-direction: row;
     justify-content: center;
-    padding: 5px 0px 130px 0px;
+    padding: 10px 0px;
 }
-
+.bottom-pad{
+    padding-bottom: 120px;
+}
 /* Row */
 .row {
     margin-right: (-$margin-gutter);
@@ -37,9 +39,9 @@
         padding-right: ($margin-gutter);
     }
 }
-// .col-1-5{
-//     width:(100% / 5);
-// }
+.col-1-5{
+    width:(100% / 5);
+}
 @include medium-and-above{
     .col-1-3{
         width: (100% / 3);
