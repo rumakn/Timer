@@ -9,8 +9,9 @@ var statusSession, statusStart; /* start/play button status and type of timer */
 var currentTime, startingTime; /* hold current time and starting time for reset */
 let countdown; /* holds the interval timer */
 var modal, closeBtn, btnModalSave, btnModalReset, btnModalCancel;
-var modalTime, modalTag, modaldefault, modalSound, modalVolume;
-var Timers;
+var modalTime, modalTag, modalDefault, modalSound, modalVolume;
+let Timers;
+var customSelected, customForm;
 
 
 function init() {
@@ -44,11 +45,12 @@ function init() {
 
     /* modal input */
     modalTime = document.querySelector("#modalTime");
-    modalTag = document.querySelector("modalTag");
-    modaldefault = document.querySelector("modalDefault");
-    modalSound = document.querySelector("modalSound");
-    modalVolume = document.querySelector("modalVolume");
+    modalTag = document.querySelector("#modalTag");
+    modalDefault = document.querySelector("#modalDefault");
+    modalSound = document.querySelector("#modalSound");
+    modalVolume = document.querySelector("#modalVolume");
 
+    customForm = document.querySelector("#form-custom");
     initTimers();
 
 
@@ -68,35 +70,35 @@ function init() {
 function initTimers(){
     Timers = [
         {
-            name: "Work",
+            tag: "Work",
             time: 25,
             defaultSound: true,
             soundType: "Ding", 
             volume: 100
         },
         {
-            name: "Short Break",
+            tag: "Short Break",
             time: 5,
             defaultSound: true,
             soundType: "Ding", 
             volume: 100
         },
         {
-            name: "Long Break",
-            time: 15,
+            tag: "Long Break",
+            time: 10,
             defaultSound: true,
             soundType: "Ding", 
             volume: 100
         },
         {
-            name: "Custom Timer 1",
+            tag: "Custom Timer 1",
             time: 25,
             defaultSound: true,
             soundType: "Ding", 
             volume: 100
         },
         {
-            name: "Custom Timer 2",
+            tag: "Custom Timer 2",
             time: 25,
             defaultSound: true,
             soundType: "Ding", 
@@ -186,40 +188,64 @@ function saveCustom(){
 
 
     // get the filled in form values
-    // if custom 1 button 
-    // fill custom 1 values 
-    // change custom 1 button values 
-    // un disable second custom
 
-    // if custom 2
-    // fill custom 2 values
-    // change button 
+    Timers[customSelected].time = parseInt(modalTime.value);
+    Timers[customSelected].tag = modalTag.value;
+    Timers[customSelected].defaultSound = modalDefault.checked;
+    Timers[customSelected].soundType = modalSound.value;
+    Timers[customSelected].volume = parseInt(modalVolume.value);
+
+    updateBtnDisplay();
+
     closeModal();
 }
+
+function updateBtnDisplay(){
+    if(customSelected == 3){
+        btnCustom1.textContent = Timers[3].time + " min";
+        btnCustom2.disabled = false;
+        btnCustom2.classList.remove("btn-greyed");
+    }
+    else{
+        btnCustom2.textContent = Timers[4].time + " min";
+    }
+}
+
 function resetModal(){
     // set back to default when opened
+    customForm.reset();
 }
 function changeCurrentTime(){
     if(this.classList.contains('btn-greyed')){
         return false;
     }
-    if(this.innerHTML == " + "){
+    else if(this.innerHTML == " + "){
+        if(this.id == "btn-cust-1"){
+            customSelected = 3; /* index value of selected button */
+        }
+        else{
+            customSelected = 4;
+        }
         openModal();
         return false;
     }
-    var seconds = parseInt(this.dataset.time) * 60;
-    currentTime = seconds;
-    if(statusStart){
-        timerFunc(currentTime);
-    }
     else{
-        displayTimeFormat(currentTime);
+        var seconds = Timers[parseInt(this.dataset.id)].time * 60;
+        currentTime = seconds;
+        startingTime = currentTime;
+        if(statusStart){
+            timerFunc(currentTime);
+        }
+        else{
+            displayTimeFormat(currentTime);
+        }
+        switchTitle(this);
     }
-    switchBreak(this);
+    
 }
 
 
-function switchBreak(selectedButton){
+function switchTitle(selectedButton){
     
     if(selectedButton.id == "btn-work"){
         statusSession = 0;
@@ -238,7 +264,7 @@ function switchBreak(selectedButton){
     }
 
 
-   timerTitle.innerHTML = Timers[statusSession].name;
+   timerTitle.innerHTML = Timers[statusSession].tag;
 }
 
 function setStatus(){
@@ -252,7 +278,7 @@ function setStatus(){
     else{
         statusStart = true;
         btnStart.innerHTML = "Pause";
-        timerTitle.innerHTML = Timers[statusSession].name;
+        timerTitle.innerHTML = Timers[statusSession].tag;
         startTimer();
 
     }
@@ -281,12 +307,13 @@ function timerFunc(seconds) {
 
 function displayTimeFormat(seconds){
     currentTime = seconds;
+    console.log(currentTime);
     const minutes = Math.floor ( seconds / 60 );
     const remainderSeconds = seconds % 60;
     const display = `${minutes}:${remainderSeconds < 10 ? '0' : ''}${remainderSeconds}`;
     timer.textContent =  display;
     document.title = display;
-}
+} 
 
 function startTimer(){
     timerFunc(currentTime);
@@ -299,8 +326,10 @@ function pauseTimer(){
 
 
 function resetTimer(){
-    
+    console.log(currentTime);
     currentTime = startingTime;
+    
+    
     if(statusStart){
         timerFunc(currentTime);
     }
