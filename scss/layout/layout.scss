@@ -48,6 +48,20 @@
     }
 }
 
-
-
-
+.SettingsTabs {
+    margin: 0px 15px;
+    width:auto;
+    > button{
+        display:block;
+        width:100%;
+        margin:10px;
+    }
+}
+.TabContainer{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+}
+form.hide{
+    display:none !important;
+}

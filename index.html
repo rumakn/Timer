@@ -72,37 +72,20 @@
             <section class = "container">
                 <div class=" widget container widget-light" id="settingsWidget">
                     <h2> Settings </h2>
-                    <div class="SettingsTabs">
-                        <button id="DefaultTab"class="btn btn-dark"> Defaults</button>
-                        <button id="WorkTab"class="btn btn-dark"> Work Timer</button>
-                        <button id="BreakShortTab"class="btn btn-dark"> Short Break Timer</button>
-                        <button id="BreakLongTab"class="btn btn-dark"> Long Break Timer</button>
-                        <button id="Custom1Tab"class="btn btn-dark"> Custom Timer 1</button>
-                        <button id="Custom2Tab"class="btn btn-dark"> Custom Timer 2</button>
-                    </div>
-                    <form id = "form-custom">
-                        
-                            <fieldset>
-                                <legend>
-                                    General Settings
-                                </legend>
-    
-                                <label for="settingsTime">time</label>
-                                <input type="number" name="settingsTime" id="settingsTime" autocomplete="off" autofocus value="25" />
-    
-                                <br/>
-    
-                                <label for="settingsTag">name</label>
-                                <input type="text" name="settingsTag" id="settingsTag" autocomplete="off" value="Custom Timer"/>
-
-                            </fieldset>
-
+                    <div class="TabContainer">
+                        <div class="SettingsTabs">
+                            <button id="DefaultTab"class="btn btn-tab btn-tab-select"> Defaults</button>
+                            <button id="WorkTab"class="btn btn-tab"> Work Timer</button>
+                            <button id="BreakShortTab"class="btn btn-tab"> Short Break Timer</button>
+                            <button id="BreakLongTab"class="btn btn-tab"> Long Break Timer</button>
+                            <button id="Custom1Tab"class="btn btn-tab"> Custom 1 Timer</button>
+                            <button id="Custom2Tab"class="btn btn-tab"> Custom 2 Timer</button>
+                        </div>
+                        <form id = "form-settings-default" class="form-settings ">
                             <fieldset>
                                 <legend>
                                     Alerts
                                 </legend>
-                                <label for="settingsDefault"> use default? </label>
-                                <input type="checkbox" name="settingsDefault" id="settingsDefault"  checked/>
                                 <br>
                                 <label for="settingsSound">sound type : </label>
                                 <select name="settingsSound" id="settingsSound">
@@ -118,10 +101,68 @@
                                 <div class="slidecontainer" >
                                         <input type="range" name="settingsVolume" id="settingsVolume" min="1" max="100" value="50" class="slider" >
                                 </div>
+
+                                <button id="resetAllAlerts" class="btn btn-dark"> Reset All Timer Alerts </button>
                             </fieldset>
+
+                            <fieldset>
+                                <legend>
+                                    Loop Setup
+                                </legend>
+    
+                                
+
+                            </fieldset>
+
+                            
                             <input type="submit" value="Apply Settings" />
                         </form>
 
+                        <form id = "form-settings" class="form-settings hide">
+                            
+                                <fieldset>
+                                    <legend>
+                                        General Settings
+                                    </legend>
+        
+                                    <label for="settingsTime">time</label>
+                                    <input type="number" name="settingsTime" id="settingsTime" autocomplete="off" autofocus value="25" />
+        
+                                    <br/>
+        
+                                    <label for="settingsTag">name</label>
+                                    <input type="text" name="settingsTag" id="settingsTag" autocomplete="off" value="Custom Timer"/>
+
+                                </fieldset>
+
+                                <fieldset>
+                                    <legend>
+                                        Alerts
+                                    </legend>
+                                    <label for="settingsDefault"> use default? </label>
+                                    <input type="checkbox" name="settingsDefault" id="settingsDefault"  checked/>
+                                    <br>
+                                    <label for="settingsSound">sound type : </label>
+                                    <select name="settingsSound" id="settingsSound">
+                                        <option value="ding">Ding</option>
+                                        <option value="jingle">Jingle</option>
+                                        <option value="Tone">Tone</option>
+                                        <option value="Alarm">Alarm</option>
+                                    </select>
+        
+                                    <br/>
+        
+                                    <label for="settingsVolume">Volume</label>
+                                    <div class="slidecontainer" >
+                                            <input type="range" name="settingsVolume" id="settingsVolume" min="1" max="100" value="50" class="slider" >
+                                    </div>
+                                </fieldset>
+                                <input type="submit" value="Apply Settings" />
+                            </form>
+
+                            
+
+                        </div>
                 </div>
             </section>
 

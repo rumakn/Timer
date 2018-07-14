@@ -2,8 +2,8 @@ form{
     text-align:left;
 }
 input{
-    width:50%;
-    display:block;
+    width:100%;
+    // display:block;
 &[type = number],&[type = text]{
         padding: 15px 20px;
         margin: 8px 0;
@@ -12,4 +12,21 @@ input{
      display:inline-block;
      width:auto;
  }  
+ @include medium-and-above{
+    width:50%;
+}
+}
+
+select{
+    width:100%;
+    // display:block;
+    padding: 15px 20px;
+    margin: 8px 0;
+    @include medium-and-above{
+    width:50%;
+    }
+}
+.form-settings{
+    width: 70%;
+    display:inline-block;
 }

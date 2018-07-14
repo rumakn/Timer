@@ -9,17 +9,18 @@
     font-size: 1.2em;
     font-weight:bold;
     border-radius:4px;
+    &:focus{
+        outline:0;
+    }
 }
 
 .btn-light{   
     background: none;
-    border: 2px;
     color: $text-color;
     border: 2px solid $text-color;
 }
 .btn-dark{   
     background: none;
-    border: 2px;
     color: $dark-text;
     border: 2px solid  $dark-text;
 }
@@ -46,3 +47,18 @@
     
 }
 
+.btn-tab{
+    background: none;
+    color: $dark-text;
+    border:none;
+    text-align:left;
+    &:hover{
+        background:$dark-text;
+        color:$text-color;
+    }
+}
+
+.btn-tab-select{
+    background:$dark-text;
+    color:$text-color;
+}

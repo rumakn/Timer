@@ -432,6 +432,22 @@ a:hover {
   .col-1-3 {
     width: 33.33333%; } }
 
+.SettingsTabs {
+  margin: 0px 15px;
+  width: auto; }
+  .SettingsTabs > button {
+    display: block;
+    width: 100%;
+    margin: 10px; }
+
+.TabContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; }
+
+form.hide {
+  display: none !important; }
+
 .btn {
   display: inline-block;
   text-align: center;
@@ -442,16 +458,16 @@ a:hover {
   font-size: 1.2em;
   font-weight: bold;
   border-radius: 4px; }
+  .btn:focus {
+    outline: 0; }
 
 .btn-light {
   background: none;
-  border: 2px;
   color: #F2F2F2;
   border: 2px solid #F2F2F2; }
 
 .btn-dark {
   background: none;
-  border: 2px;
   color: #8A6686;
   border: 2px solid #8A6686; }
 
@@ -473,6 +489,19 @@ a:hover {
   margin-right: 5px;
   width: 100%;
   white-space: normal; }
+
+.btn-tab {
+  background: none;
+  color: #8A6686;
+  border: none;
+  text-align: left; }
+  .btn-tab:hover {
+    background: #8A6686;
+    color: #F2F2F2; }
+
+.btn-tab-select {
+  background: #8A6686;
+  color: #F2F2F2; }
 
 .widget {
   text-align: center;
@@ -598,11 +627,25 @@ form {
   text-align: left; }
 
 input {
-  width: 50%;
-  display: block; }
+  width: 100%; }
   input[type=number], input[type=text] {
     padding: 15px 20px;
     margin: 8px 0; }
   input[type=checkbox] {
     display: inline-block;
     width: auto; }
+  @media only screen and (min-width: 48em) {
+    input {
+      width: 50%; } }
+
+select {
+  width: 100%;
+  padding: 15px 20px;
+  margin: 8px 0; }
+  @media only screen and (min-width: 48em) {
+    select {
+      width: 50%; } }
+
+.form-settings {
+  width: 70%;
+  display: inline-block; }

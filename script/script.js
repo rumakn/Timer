@@ -12,7 +12,8 @@ var modal, closeBtn, btnModalSave, btnModalReset, btnModalCancel;
 var modalTime, modalTag, modalDefault, modalSound, modalVolume;
 let Timers;
 var customSelected, customForm;
-
+var buttonsTime, buttonsSettings;
+var currentSettingTab;
 
 function init() {
     // document queries
@@ -54,11 +55,12 @@ function init() {
     initTimers();
 
 
-   
+    buttonsSettings = document.querySelectorAll(".SettingsTabs > button");
+    
 
     currentTime = Timers[0].time * 60;
     startingTime = currentTime;
-
+    currentSettingTab = 0; /* index of setting tab */
     // initial status settings 
     statusSession = 0; /* value of selected timer, same is Timers index*/
     statusStart = false; /* whether timer is paused or started */
@@ -132,6 +134,15 @@ function buttonListenerSetup(){
         }
      }
     )
+
+    buttonsSettings.forEach(function(element){
+        if(element.addEventListener){
+            element.addEventListener('click', changeSettingsTab);
+        }else{
+            // internet explorer < 9
+            element.attachEvent('onclick', changeSettingsTab);
+        }
+    })
 }
 
 function closeModal(){
@@ -214,6 +225,20 @@ function updateBtnDisplay(){
 function resetModal(){
     // set back to default when opened
     customForm.reset();
+}
+
+function changeSettingsTab(){
+    if(this.classList.contains('btn-tab-select')){
+        return false;
+    }
+    else{
+        buttonsSettings[currentSettingTab].classList.remove('btn-tab-select');
+        this.classList.add('btn-tab-select');
+        currentSettingTab = Array.from(buttonsSettings).indexOf(event.target);
+
+        // display block either default or timer setting form
+        // if timer settings form then : fill form with current values
+    }
 }
 function changeCurrentTime(){
     if(this.classList.contains('btn-greyed')){
