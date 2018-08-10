@@ -4,13 +4,15 @@
     text-align:center;
     vertical-align:middle;
     white-space: nowrap;
-    cursor: pointer;
     padding: 10px;
     font-size: 1.2em;
     font-weight:bold;
     border-radius:4px;
     &:focus{
         outline:0;
+    }
+    &:not(:disabled){
+        cursor: pointer;
     }
 }
 
@@ -51,7 +53,7 @@
     background: none;
     color: $dark-text;
     border:none;
-    text-align:left;
+    text-align:right;
     &:hover{
         background:$dark-text;
         color:$text-color;
@@ -61,4 +63,8 @@
 .btn-tab-select{
     background:$dark-text;
     color:$text-color;
+}
+
+.btn-hidden{
+    display:none;
 }

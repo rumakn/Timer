@@ -10,19 +10,19 @@
         <script src="script/script.js"></script>
     </head>
 
-    <body class="background-main">
+    <body id="top" class="background-main">
         <header>
-            <div class = "container">
+            <!-- <div class = "container"> -->
             <!-- nav bar for mobile -->
                 <nav class = "nav">
                     <ul>
-                        <li> <a href="#timerWidget" class="btn btn-nav" > Timer</a></li>
+                        <li> <a href="#top" class="btn btn-nav" > Timer</a></li>
                         <li> <a href="#settingsWidget" class="btn btn-nav" > Settings</a></li>
                         <li> <a href="#aboutWidget" class="btn btn-nav" > About</a></li>
                         <li> <a href="#" class="btn btn-nav" > Stats</a></li>
                     </ul>
                 </nav>
-            </div>
+            <!-- </div> -->
         </header>
 
         <main>
@@ -30,7 +30,7 @@
             <section class = "container">
                 
                 <div class=" widget" id="timerWidget">
-                    <div class ="button-flex bottom-pad">
+                    <div class ="flex-contain bottom-pad">
                         <button id= "btn-work" data-id="0" class="btn btn-light btn-second"> 25 min</button>
                
                         <button id= "btn-short" data-id="1" class="btn btn-light btn-second"> 5 min</button>
@@ -70,7 +70,7 @@
         </section>
         
             <section class = "container">
-                <div class=" widget container widget-light" id="settingsWidget">
+                <div class=" widget widget-light" id="settingsWidget">
                     <h2> Settings </h2>
                     <div class="TabContainer">
                         <div class="SettingsTabs">
@@ -78,105 +78,192 @@
                             <button id="WorkTab"class="btn btn-tab"> Work Timer</button>
                             <button id="BreakShortTab"class="btn btn-tab"> Short Break Timer</button>
                             <button id="BreakLongTab"class="btn btn-tab"> Long Break Timer</button>
-                            <button id="Custom1Tab"class="btn btn-tab"> Custom 1 Timer</button>
-                            <button id="Custom2Tab"class="btn btn-tab"> Custom 2 Timer</button>
+                            <button id="Custom1Tab"class="btn btn-tab"> + </button>
+                            <button id="Custom2Tab"class="btn btn-greyed btn-tab" disabled> + </button>
                         </div>
-                        <form id = "form-settings-default" class="form-settings ">
-                            <fieldset>
-                                <legend>
-                                    Alerts
-                                </legend>
-                                <br>
-                                <label for="settingsSound">sound type : </label>
-                                <select name="settingsSound" id="settingsSound">
-                                    <option value="ding">Ding</option>
-                                    <option value="jingle">Jingle</option>
-                                    <option value="Tone">Tone</option>
-                                    <option value="Alarm">Alarm</option>
-                                </select>
-    
-                                <br/>
-    
-                                <label for="settingsVolume">Volume</label>
-                                <div class="slidecontainer" >
-                                        <input type="range" name="settingsVolume" id="settingsVolume" min="1" max="100" value="50" class="slider" >
-                                </div>
+                        
+                            <form name ="form_settings_default" id = "form-settings-default" class="form-settings flex-settings">
+                                    
 
-                                <button id="resetAllAlerts" class="btn btn-dark"> Reset All Timer Alerts </button>
-                            </fieldset>
-
-                            <fieldset>
-                                <legend>
-                                    Loop Setup
-                                </legend>
-    
-                                
-
-                            </fieldset>
-
-                            
-                            <input type="submit" value="Apply Settings" />
-                        </form>
-
-                        <form id = "form-settings" class="form-settings hide">
-                            
-                                <fieldset>
-                                    <legend>
-                                        General Settings
-                                    </legend>
-        
-                                    <label for="settingsTime">time</label>
-                                    <input type="number" name="settingsTime" id="settingsTime" autocomplete="off" autofocus value="25" />
-        
-                                    <br/>
-        
-                                    <label for="settingsTag">name</label>
-                                    <input type="text" name="settingsTag" id="settingsTag" autocomplete="off" value="Custom Timer"/>
-
-                                </fieldset>
-
-                                <fieldset>
+                               <fieldset>
+                                    
                                     <legend>
                                         Alerts
                                     </legend>
-                                    <label for="settingsDefault"> use default? </label>
-                                    <input type="checkbox" name="settingsDefault" id="settingsDefault"  checked/>
-                                    <br>
-                                    <label for="settingsSound">sound type : </label>
-                                    <select name="settingsSound" id="settingsSound">
-                                        <option value="ding">Ding</option>
-                                        <option value="jingle">Jingle</option>
-                                        <option value="Tone">Tone</option>
-                                        <option value="Alarm">Alarm</option>
-                                    </select>
-        
+                                    
+                                    <ul class="flex-settings">
+                                        <li>
+                                            <label for="settingsSound">sound type </label>
+                                            <select name="settingsSound" id="settingsSound">
+                                                <option value="bell">Bell</option>
+                                                <option value="ding">Ding</option>
+                                                <option value="droplet">Droplet</option>
+                                                <option value="elevator">Elevator</option>
+                                                <option value="jingle">Jingle</option>
+                                                <option value="tone">Tone</option>
+                                            </select>
+                                        </li>   
                                     <br/>
-        
-                                    <label for="settingsVolume">Volume</label>
-                                    <div class="slidecontainer" >
-                                            <input type="range" name="settingsVolume" id="settingsVolume" min="1" max="100" value="50" class="slider" >
-                                    </div>
+                                        
+                                    <li>
+                                        <label for="settingsVolume">Volume</label>
+                                        <div class="slidecontainer" >
+                                                <input type="range" name="settingsVolume" id="settingsVolume" min="1" max="100" value="50" class="slider" >
+                                        </div>
+                                        </li>
+                                        <li>
+                                            <label> Test Sound Settings</label>
+                                            <button type="button" class="btn btn-dark testSound" id="defaultTest"> Test Sound</button>
+                                        </li>
+                                    </ul>
+
                                 </fieldset>
-                                <input type="submit" value="Apply Settings" />
+                            
+                                <fieldset>
+                                        
+                                    <legend>
+                                        Loop Setup
+                                    </legend>
+                                    <ul class="flex-settings">
+                                        <li>
+                                            <label for="autoLoop"> auto loop? </label>
+                                            <input type="checkbox" name="autoLoop" id="autoLoopCheck" checked/>
+                                        </li>
+                                    </ul>
+                                    
+
+                                </fieldset>
+
+                                <div class = "flex-contain full-container">
+                                    
+                                    <button id="saveDefault" class="btn btn-second btn-dark"> Save </button>
+                                    <button type="button" id="resetDefault" class="btn btn-second  btn-dark"> Reset </button>
+                                </div>
+                                <div class="notification">
+                                    <h3> Saved Settings! </h3>
+                                </div> 
+                            
                             </form>
 
-                            
+                            <form name ="form_settings" id = "form-settings" class="form-settings hide ">
+                                
+                                    <fieldset>
+                                        <legend>
+                                            General Settings
+                                        </legend>
+                                        <ul class="flex-settings">
+                                            <li>
+                                                <label for="settingsTime">time (mins)</label>
+                                                <input type="number" required min="1" step="1" name="settingsTime" id="settingsTime" autocomplete="off" autofocus value="25" />
+                                            </li>
+                                            
+                                            <li>
+                                                <label for="settingsTag">name</label>
+                                                <input type="text" required maxlength="12" name="settingsTag" id="settingsTag" autocomplete="off" value="Custom Timer"/>
+                                            </li>
+                                        </ul>
+                                    </fieldset>
+                                   
+                                    <fieldset>
+                                        <legend>
+                                            Alerts
+                                        </legend>
 
+                                        <ul class="flex-settings">
+                                            <li>
+                                                <label for="settingsDefault"> use default? </label>
+                                                <input type="checkbox" name="settingsDefault" id="settingsDefault" checked/>
+                                            </li>
+                                                
+                                            <li>
+                                            <label for="settingsSound">sound type  </label>
+                                            <select disabled name="settingsSound" id="settingsSound" class ="defaultDepend">
+                                                <option value="bell">Bell</option>
+                                                <option value="ding">Ding</option>
+                                                <option value="droplet">Droplet</option>
+                                                <option value="elevator">Elevator</option>
+                                                <option value="jingle">Jingle</option>
+                                                <option value="tone">Tone</option>
+                                            </select>
+                                            </li>
+                                                
+
+                                            <li>
+                                            <label for="settingsVolume">Volume</label>
+                                            <div class="slidecontainer" >
+                                                    <input disabled type="range" name="settingsVolume" id="settingsVolume" min="1" max="100" value="50" class="slider defaultDepend" >
+                                            </div>
+                                            </li>
+                                            <li>
+                                                <label> Test Sound Settings</label>
+                                                <button disabled id="settingsTest" type="button" class="btn btn-dark testSound defaultDepend" disabled> Test Sound</button>
+                                            </li>
+                                        </ul>
+                                    </fieldset>
+                                    <div class = "flex-contain full-container">
+                                    
+                                        <button id="saveSettings" class="btn btn-second btn-dark"> Save </button>
+                                        <button type="button" id="resetSettings" class="btn btn-second  btn-dark"> Reset </button>
+                                        <button type="button" id="deleteTimer" class="btn btn-second btn-dark btn-hidden"> Delete </button>
+                                        
+                                    </div>
+                                    <div class="notification" >
+                                        <h3> Saved Settings! </h3>
+                                    </div> 
+                                </form>
+                                
+                                
                         </div>
+                        
                 </div>
             </section>
 
             <!-- About section  -->
             <section class = "container">
-                <div class=" widget container widget-light" id="aboutWidget">
-                    <h2> Pomodoro Technique </h2>
+                <div class=" widget widget-light" id="aboutWidget">
+                    <h2> POMODORO TECHNIQUE </h2>
+                    <p> Increase your producticity by following this simple schedule!</p>
+                    <div class = "flex-contain darken-back">
 
-                    <p> 4 Loops of : 25 minute work session + 5 min breaks between <br/>
-                        Then 1 10-15 min break
-                    </p>
+                        <!-- add image of loop here -->
+                        <div class = "col-group">
+                            
+                            <img src ="images/4loop.svg" alt="work graphic" >
+                        </div>
+                        <div class = "col-group">
+                            
+                            <img src ="images/1loop.svg" alt="short break graphic" >
+                        </div>
+                    </div>
                 </div>
-                
-            </section>
+                <div class = "widget widget-light">
+                        
+                        <h2> About </h2>
+                    <div class ="about">
+                        
+                        <h4> What is it?</h4>
+                        <p> The Pomodoro Technique is a system of working where you break down your time into smaller sections to help manage productivity.
+                            You are more productive when you are given a chance to take a break every so often and can break down tasks into smaller chunks of work time. 
+                            This technique allows you to schedule working time and break times. 
+                        </p>
+
+                        <h4> How can it be customized? </h4>
+                        <p>
+                            With this pomodoro timer you can add two custom timers using the + buttons on the top of the timer or in the settings. 
+                            You can also delete and edit the timers through the settings section to make the timer work however you would like. Each timer can also have its own alert sound. 
+                            You can also edit the loop so that you create your own schedule that works best for you.
+                        </p>
+                    </div></div>
+            <section class = "container">
+                    <div class=" widget widget-light" id="statsWidget">
+                        <h2> Today's Statistics </h2>
+                            <!-- loops worked :   -->
+                            <!-- hours worked : -->
+                            <!-- sort by -->
+                            <!-- table with history -->
+                            <!-- total time in chart at bottom -->
+
+                    </div>
             <!-- History Section -->
             <section>
 
@@ -195,53 +282,74 @@
                                 <legend>
                                     General Settings
                                 </legend>
-    
-                                <label for="modalTime">time</label>
-                                <input type="number" name="modalTime" id="modalTime" autocomplete="off" autofocus value="25" />
-    
-                                <br/>
-    
-                                <label for="modalTag">name</label>
-                                <input type="text" name="modalTag" id="modalTag" autocomplete="off" value="Custom Timer"/>
-
+                                <ul class = " flex-settings">
+                                    <li>
+                                        <label for="modalTime">time (mins)</label>
+                                        <input type="number" required min="1" step="1" name="modalTime" id="modalTime" autocomplete="off" autofocus value="25" />
+                                    </li>
+                                    <li>
+                                        <label for="modalTag">name</label>
+                                        <input type="text" required maxlength="12" name="modalTag" id="modalTag" autocomplete="off" value="Custom"/>
+                                    </li>
+                                </ul>
                             </fieldset>
 
                             <fieldset>
                                 <legend>
                                     Alerts
                                 </legend>
-                                <label for="modalDefault"> use default? </label>
-                                <input type="checkbox" name="modalDefault" id="modalDefault"  checked/>
-                                <br>
-                                <label for="modalSound">sound type : </label>
-                                <select name="modalSound" id="modalSound">
-                                    <option value="ding">Ding</option>
-                                    <option value="jingle">Jingle</option>
-                                    <option value="Tone">Tone</option>
-                                    <option value="Alarm">Alarm</option>
-                                </select>
+                                <ul class = "flex-settings">
+                                    <li>
+                                        <label for="modalDefault"> use default? </label>
+                                        <input type="checkbox" name="modalDefault" id="modalDefault"  checked/>
+                                    </li>
+                                    <li>
+                                        <label for="modalSound">sound type : </label>
+                                        <select disabled name="modalSound" id="modalSound" class="defaultDepend">
+                                            <option value="bell">Bell</option>
+                                            <option value="ding">Ding</option>
+                                            <option value="droplet">Droplet</option>
+                                            <option value="elevator">Elevator</option>
+                                            <option value="jingle">Jingle</option>
+                                            <option value="tone">Tone</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        
+                                
     
-                                <br/>
-    
-                                <label for="modalVolume">Volume</label>
-                                <div class="slidecontainer" >
-                                        <input type="range" name="modalVolume" id="modalVolume" min="1" max="100" value="50" class="slider" >
-                                </div>
+                                    <label for="modalVolume">Volume</label>
+                                    <div class="slidecontainer" >
+                                            <input disabled type="range" name="modalVolume" id="modalVolume" min="1" max="100" value="50" class="slider defaultDepend" >
+                                    </div>
+                                </li>
+                                <li>
+                                <label> Test Sound Settings</label>
+                                    <button disabled type="button" class="btn btn-dark testSound modalTest defaultDepend"> Test Sound</button>
+                                </li>
+                            </ul>
                             </fieldset>
+                            <div class="modal-footer">
+                                <div class ="flex-contain">
+                                    <button id= "btn-modal-save" class="btn btn-second btn-dark"> Save </button>
                             
+                                    <button type="button" id= "btn-modal-reset" class="btn btn-second btn-dark"> Reset </button>
+                                
+                                    <button type="button" id= "btn-modal-cancel" class="btn btn-second btn-dark"> Cancel </button>
+                                </div>
+                            </div>
                         </form>
                     </div>
-                    <div class="modal-footer">
-                        <div class ="button-flex">
-                                <button id= "btn-modal-save" class="btn btn-second btn-dark"> Save </button>
-                           
-                                <button id= "btn-modal-reset" class="btn btn-second btn-dark"> Reset </button>
-                            
-                                <button id= "btn-modal-cancel" class="btn btn-second btn-dark"> Cancel </button>
-                            </div>
-
-                    </div>
+                    
                 </div>
+            </div>
+            <div class = "audio">
+                <audio data-sound="bell" src = "audio/bell.mp3"></audio>
+                <audio data-sound="ding" src = "audio/ding.mp3"></audio>
+                <audio data-sound="droplet" src = "audio/droplet.mp3"></audio>
+                <audio data-sound="elevator" src = "audio/elevator.mp3"></audio>
+                <audio data-sound="jingle" src = "audio/jingle.mp3"></audio>
+                <audio data-sound="tone" src = "audio/tone.mp3"></audio>
             </div>
         </main>
 

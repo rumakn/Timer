@@ -1,27 +1,27 @@
 $light-grey: #F2F2F2 !default;
 $medium-grey: #E8E5E5 !default;
 $dark-grey: #4A484C !default;
-$purple: #8A6686 !default;
+$pink: #BA6A74 !default;
 $grey: #D3C4D6 !default;
 $transparent-black: rgba(0,0,0,0.6) !default; 
 $purple-grey: #7D7D7D;
 
-
 $text-color: $light-grey !default;
 $background: $light-grey !default;
 $background-image: url("../images/bg.jpeg");
+
 $widget-back: $transparent-black !default;
 $timer-change-button : $light-grey !default;
 $button-greyed : $grey !default;
 $modal-background: $transparent-black !default;
 $modal-content: $light-grey;
-$modal-text:$purple;
+$modal-text:$pink;
 $body-text: $dark-grey;
-$nav-color: $purple-grey;
 $nav-text: $dark-grey;
 $html-back: $medium-grey;
-$dark-text: $purple;
-
+$dark-text: $pink;
+$dark-back : $pink;
+$highlight-color: $pink;
 
 
 

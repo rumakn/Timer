@@ -6,15 +6,13 @@ input{
     // display:block;
 &[type = number],&[type = text]{
         padding: 15px 20px;
-        margin: 8px 0;
+        margin: 2px 0;
     }
  &[type = checkbox] {
      display:inline-block;
      width:auto;
  }  
- @include medium-and-above{
-    width:50%;
-}
+
 }
 
 select{
@@ -29,4 +27,14 @@ select{
 .form-settings{
     width: 70%;
     display:inline-block;
+}
+
+legend{
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-left: 20px;
+    padding: 0px 10px;
+}
+fieldset{
+    margin: 0px 0px 20px 0px;
 }

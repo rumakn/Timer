@@ -23,9 +23,12 @@
 
 /* Modal Body */
 .modal-body {
-    padding: 30px 16px;
+    
     color: $body-text;
     overflow:auto;
+    & > form > fieldset{
+        margin: 30px 16px;
+    }
 }
 
 /* Modal Footer */
@@ -39,7 +42,7 @@
 .modal-content {
     position: relative;
     background-color: #fefefe;
-    margin: 150px auto;
+    margin: 10px auto;
     padding: 0;
     border: 1px solid #888;
     
@@ -50,7 +53,7 @@
     overflow:hidden;
 
     @include medium-and-above{
-        width: 50%;
+        width: 65%;
     }
 }
 

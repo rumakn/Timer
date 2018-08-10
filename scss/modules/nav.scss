@@ -1,24 +1,46 @@
 .nav{
     
+     
     margin: 20px 0px;
-    width:100% !important;
+    width:100%;
 
     text-align:center;
     li{
         display:inline-block;
         
     }
-    @include medium-and-above{
-        text-align: right;
-        
-    }
+    
+}
+.sticky{
+    background:$html-back;
+    margin: 0px 0px;
+    position: fixed;
+    top:0;
+    width:100%;
 }
 
+.sticky + main{
+    padding-top: 128px;
+}
+.sticky nav{
+    margin:0px;
+    & > ul {
+        padding: 10px 0px;
+    }
+    
+}
+.nav > ul > li {
+    flex: 1 1 100px;
+    max-width: 100px;
+}
 .nav > ul {
     list-style: none;
-    padding: 0px;
-    margin: 0px;
-    color: $text-color;
+    margin: 0px auto;
+    max-width: 1200px;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 20px 0px;
   }
 
   .nav > ul > li a, .nav > ul > li a:visited{
@@ -27,5 +49,5 @@
   }
   .nav > ul > li a:hover, 
   .nav > ul > li a:focus{
-      text-decoration:underline;
+  color: $highlight-color;
   }
