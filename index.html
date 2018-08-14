@@ -60,6 +60,12 @@
                         
                     </div>
                 </div>
+
+                <div class="widget-light flex-contain">
+                    <h4 id = "LoopLabel" class = "flex-half-left"> Loop : # 1 Work</h4>
+                    <h4 id = "HrLabel" class ="flex-half-right"> Time Worked Today: 0 mins</h4>
+                    
+                </div>
             </section>
 
             <!-- Timer section -->
@@ -78,8 +84,8 @@
                             <button id="WorkTab"class="btn btn-tab"> Work Timer</button>
                             <button id="BreakShortTab"class="btn btn-tab"> Short Break Timer</button>
                             <button id="BreakLongTab"class="btn btn-tab"> Long Break Timer</button>
-                            <button id="Custom1Tab"class="btn btn-tab"> + </button>
-                            <button id="Custom2Tab"class="btn btn-greyed btn-tab" disabled> + </button>
+                            <button id="Custom1Tab"class="btn btn-tab plusTab"> + </button>
+                            <button id="Custom2Tab"class="btn btn-greyed btn-tab plusTab" disabled> + </button>
                         </div>
                         
                             <form name ="form_settings_default" id = "form-settings-default" class="form-settings flex-settings">
@@ -153,8 +159,12 @@
                                         </legend>
                                         <ul class="flex-settings">
                                             <li>
-                                                <label for="settingsTime">time (mins)</label>
-                                                <input type="number" required min="1" step="1" name="settingsTime" id="settingsTime" autocomplete="off" autofocus value="25" />
+                                                <label for="settingsTime">time</label>
+                                                <div class="flex-contain">
+                                                    <input type="number" placeholder="minutes" min="1" step="1" max="60" name="settingsTime" id="settingsTime" autocomplete="off" autofocus value="25" />
+                                                    <p class="colon" > : </p>
+                                                    <input type="number" placeholder="seconds" min="1" step="1" max="60" name="settingsTimeSec" class="settingsTimeSec" autocomplete="off" autofocus />
+                                                </div>
                                             </li>
                                             
                                             <li>
@@ -223,7 +233,7 @@
                 <div class=" widget widget-light" id="aboutWidget">
                     <h2> POMODORO TECHNIQUE </h2>
                     <p> Increase your producticity by following this simple schedule!</p>
-                    <div class = "flex-contain darken-back">
+                    <div class = "flex-stack flex-contain darken-back">
 
                         <!-- add image of loop here -->
                         <div class = "col-group">
@@ -256,12 +266,12 @@
                     </div></div>
             <section class = "container">
                     <div class=" widget widget-light" id="statsWidget">
-                        <h2> Today's Statistics </h2>
+                        <h2> Statistics </h2>
                             <!-- loops worked :   -->
                             <!-- hours worked : -->
-                            <!-- sort by -->
+                            <!-- sort by type of timer -->
                             <!-- table with history -->
-                            <!-- total time in chart at bottom -->
+                            <!-- only save history for a week or so (maybe drop down) -->
 
                     </div>
             <!-- History Section -->
@@ -284,8 +294,12 @@
                                 </legend>
                                 <ul class = " flex-settings">
                                     <li>
-                                        <label for="modalTime">time (mins)</label>
-                                        <input type="number" required min="1" step="1" name="modalTime" id="modalTime" autocomplete="off" autofocus value="25" />
+                                        <label for="modalTime">time </label>
+                                        <div class="flex-contain">
+                                            <input type="number" placeholder="minutes" min="1" step="1" max="60" name="modalTime" id="modalTime" autocomplete="off" autofocus value="25" />
+                                            <p class="colon" > : </p>
+                                            <input type="number" placeholder="seconds" min="1" step="1" max="60" name="modalTimeSec" class="settingsTimeSec" autocomplete="off" autofocus />
+                                        </div>
                                     </li>
                                     <li>
                                         <label for="modalTag">name</label>

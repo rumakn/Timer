@@ -5,8 +5,12 @@ input{
     width:100%;
     // display:block;
 &[type = number],&[type = text]{
+    padding: 15px 10px;
+    margin: 2px 0;
+    @include medium-and-above{
         padding: 15px 20px;
-        margin: 2px 0;
+       
+    } 
     }
  &[type = checkbox] {
      display:inline-block;

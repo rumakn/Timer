@@ -399,11 +399,31 @@ a:hover {
   main .container {
     background: #F2F2F2; }
 
+[class*='flex-half'] {
+  flex: 1 1 100%;
+  width: 100%;
+  padding: 0px 30px;
+  margin: 0px; }
+
+.flex-half-left {
+  justify-content: left; }
+
+.flex-half-right {
+  text-align: right; }
+
 .flex-contain {
   display: flex;
   flex-direction: row;
   justify-content: center;
   padding: 10px 0px; }
+
+@media only screen and (max-width: 47.9375em) {
+  .flex-stack {
+    flex-wrap: wrap; } }
+
+@media only screen and (max-width: 47.9375em) {
+  .flex-settings {
+    padding-left: 0px; } }
 
 .flex-settings > li {
   display: flex;
@@ -411,14 +431,19 @@ a:hover {
   padding: 10px 0px;
   flex-wrap: nowrap; }
   .flex-settings > li > label {
-    flex: 1 0 120px;
+    flex: 1 0 30px;
     max-width: 200px;
     text-align: right;
-    padding-right: 50px;
-    font-weight: bold; }
+    font-weight: bold;
+    padding-right: 20px; }
+    @media only screen and (min-width: 48em) {
+      .flex-settings > li > label {
+        padding-right: 50px; } }
   .flex-settings > li > label + *, .flex-settings > li select {
-    flex: 1 0 10%;
+    flex: 3 0 10%;
     max-width: 400px; }
+  .flex-settings > li .colon {
+    padding: 0px 10px; }
   .flex-settings > li > label + button {
     max-width: 200px; }
   .flex-settings > li input[type="checkbox"], .flex-settings > li input[type="radio"] {
@@ -479,15 +504,19 @@ form.hide {
   margin: auto; }
 
 .col-group {
-  max-height: 700px;
   width: auto;
-  margin: 0px 10px; }
+  margin: 0px 5px; }
   @media only screen and (min-width: 48em) {
     .col-group {
-      margin: 0px 0px; } }
+      max-height: 700px; } }
   .col-group > img {
     display: inline;
     width: 100%; }
+    @media only screen and (max-width: 47.9375em) {
+      .col-group > img {
+        padding: 20px;
+        height: 280px;
+        width: auto; } }
 
 .btn {
   display: inline-block;
@@ -547,6 +576,9 @@ form.hide {
 
 .btn-hidden {
   display: none; }
+
+.plusTab {
+  text-align: center; }
 
 .widget {
   text-align: center;
@@ -710,8 +742,11 @@ form {
 input {
   width: 100%; }
   input[type=number], input[type=text] {
-    padding: 15px 20px;
+    padding: 15px 10px;
     margin: 2px 0; }
+    @media only screen and (min-width: 48em) {
+      input[type=number], input[type=text] {
+        padding: 15px 20px; } }
   input[type=checkbox] {
     display: inline-block;
     width: auto; }

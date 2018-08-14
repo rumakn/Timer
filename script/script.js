@@ -18,6 +18,7 @@ var currentSettingTab, settingsForm, defaultForm;
 var deleteTimer, settingsDisables, defaultCheckSet, defaultReset;
 var currentTimer,btnsSoundTest;
 var navbar,yoff;
+var LoopQueue, LoopNum, indexLoop , LoopLabel;
 
 function init() {
     // document queries
@@ -66,15 +67,22 @@ function init() {
     settingsNot = document.querySelector("#form-settings > .notification");
     defaultNot = document.querySelector("#form-settings-default > .notification");
     deleteTimer = document.querySelector("#deleteTimer");
-    initTimers();
-
+    
 
     settingsTabs = document.querySelectorAll(".SettingsTabs > button");
-    settingsSave = document.querySelector("#saveSettings");
+    
     settingsReset = document.querySelector("#resetSettings");
 
     btnsSoundTest = document.querySelectorAll(".testSound");
     
+    LoopLabel = document.querySelector("#LoopLabel");
+    if(sessionStorage.length == 0){
+        initTimers();
+        initDefaults();
+    }
+    else{
+        restoreSession();
+    }
     currentTimer = Timers[0];
     currentTime = Timers[0].time * 60;
     startingTime = currentTime;
@@ -87,7 +95,7 @@ function init() {
 
     navbar = document.querySelector(" header");
     buttonListenerSetup();
-    initDefaults();
+    
     yoff = navbar.offsetTop;
     window.onscroll = function() { navSetup() };
     
@@ -108,58 +116,90 @@ function initDefaults(){
         soundType: "jingle",
         volume: 80,
         autoLoop: true,
+        numTimers: 9,
         loopQ: [
             {
-                order:1,
+                // 0
                 timers: ["Work", "Short Break"],
                 repeats: 4
             },
             {
-                order:2,
+                // 1
                 timers: ["Long Break"],
                 repeats: 1
             }
-        ],
-        loops: 2
+        ]
+        
     };
+    initQueue();
 }
 
+function initQueue(){
+    indexLoop = 0;
+    LoopQueue = [];
+    LoopNum = [];
+    var loophold = 1;
+    SettingsDefaults.loopQ.forEach(function(element){
+        for(i = 0 ; i < element.repeats; i++){
+            LoopQueue.push(...element.timers);
+            for( j= 0; j < element.timers.length; j++){
+                LoopNum.push(loophold);
+            }
+            loophold ++;
+        }
+    });
+    
+    console.log(LoopQueue);
+    console.log(LoopNum);
+}
 function initTimers(){
     Timers = [
         {
             tag: "Work",
             time: 25,
+            seconds:0,
             defaultSound: true,
             soundType: "ding", 
-            volume: 80
+            volume: 80,
+            index: 0
         },
         {
             tag: "Short Break",
             time: 5,
+            seconds:0,
             defaultSound: false,
             soundType: "elevator", 
-            volume: 50
+            volume: 50,
+            index: 1
         },
         {
             tag: "Long Break",
             time: 10,
+            seconds:0,
             defaultSound: true,
             soundType: "tone", 
-            volume: 100
+            volume: 100,
+            index: 2
         },
         {
             tag: "Custom 1",
             time: 25,
+            seconds:0,
             defaultSound: true,
             soundType: "bell", 
-            volume: 100
+            volume: 100,
+            index: 3,
+            on: false
         },
         {
             tag: "Custom 2",
             time: 25,
+            seconds:0,
             defaultSound: true,
             soundType: "jingle", 
-            volume: 100
+            volume: 100,
+            index: 4,
+            on: false
         }
     ]
 }
@@ -323,16 +363,32 @@ function submitCustom(){
     if(!event.target.isValid){
         event.preventDefault();
     // get the filled in form values
-
-        Timers[customSelected].time = parseInt(modalTime.value);
+        var minNew = parseInt(modalTime.value);
+        if(minNew){
+            Timers[customSelected].time = minNew;
+        }
+        else{
+            Timers[customSelected].time = 0;
+        }
+        
+        var secNew = parseInt(customForm.elements.namedItem("modalTimeSec").value);
+        if(secNew){
+            Timers[customSelected].seconds = secNew;
+        }
+        else{
+            Timers[customSelected].seconds = 0;
+        }
+        
         Timers[customSelected].tag = modalTag.value;
         Timers[customSelected].defaultSound = modalDefault.checked;
         Timers[customSelected].soundType = modalSound.value;
         Timers[customSelected].volume = parseInt(modalVolume.value);
 
         updateBtnDisplay(customSelected);
-
+        Timers[customSelected].on = true;
+        saveSession();
         closeModal();
+        
     }
 }
 
@@ -347,10 +403,23 @@ function updateBtnDisplay(buttonNum){
         settingsTabs[5].disabled = false;
         settingsTabs[5].classList.remove("btn-greyed");
     }
-
-    buttonsTime[buttonNum].textContent = Timers[buttonNum].time + " min";
+    if(Timers[buttonNum].time == 0 && Timers[buttonNum].seconds != 0){
+        buttonsTime[buttonNum].textContent = Timers[buttonNum].seconds + " sec";
+    }
+    else if(Timers[buttonNum].seconds == 0 ){
+        buttonsTime[buttonNum].textContent = Timers[buttonNum].time + " min";
+    }
+    else{
+        if(Timers[buttonNum].seconds < 10){
+            buttonsTime[buttonNum].textContent = Timers[buttonNum].time + " : 0" + Timers[buttonNum].seconds;
+        }
+        else{
+            buttonsTime[buttonNum].textContent = Timers[buttonNum].time + " : " + Timers[buttonNum].seconds;
+        }
+        
+    }
     settingsTabs[buttonNum + 1].textContent = Timers[buttonNum].tag + " Timer";
-    console.log(buttonNum);
+    
 }
 // reset modal
 function resetModal(){
@@ -380,7 +449,9 @@ function deleteCurrentTimer(){
     buttonsTime[currentSettingTab-1].textContent = " + ";
     settingsTabs[currentSettingTab].textContent = " + ";
     
+    Timers[currentSettingTab-1].on = false;
     settingsTabs[currentSettingTab-1].click();
+    saveSession();
 }
 
 // 
@@ -407,21 +478,36 @@ function changeCurrentTime(){
     }
     else{
         var index = parseInt(this.dataset.id);
-        var seconds = Timers[index].time * 60;
-        currentTime = seconds;
-        startingTime = seconds;
-        if(statusStart){
-            timerFunc(currentTime);
+        timeSet(index);
+        if(currentTimer.tag !== "Work"){
+            setLoopLabel(currentTimer.tag);
         }
         else{
-            displayTimeFormat(currentTime);
+            resetLoopIndex();
         }
-        switchTitle(this);
-        currentTimer = Timers[index];
-        
+
     }
     
 }
+
+function timeSet(index){
+    var seconds = Timers[index].time * 60;
+    var secs = Timers[index].seconds;
+    if(secs > 0){
+        seconds += secs;
+    }
+    currentTime = seconds;
+    startingTime = seconds;
+    if(statusStart){
+        timerFunc(currentTime);
+    }
+    else{
+        displayTimeFormat(currentTime);
+    }
+    switchTitle(buttonsTime[index]);
+    currentTimer = Timers[index];
+}
+
 // change title in timer widget 
 function switchTitle(selectedButton){
     
@@ -453,7 +539,18 @@ function switchTitle(selectedButton){
 // 
 // 
 // 
+function setLoopLabel(Labelnew){
+    LoopLabel.textContent = Labelnew;
+}
+function updateLoopLabel(){
 
+    LoopLabel.textContent = "Loop : # " + LoopNum[indexLoop] + " " + LoopQueue[indexLoop];
+
+}
+function resetLoopIndex(){
+indexLoop = 0;
+updateLoopLabel();
+}
 function timerFunc(seconds) {
     clearInterval(countdown);
     const now = Date.now();
@@ -464,8 +561,34 @@ function timerFunc(seconds) {
        const secondsLeft = Math.round((then - Date.now() ) / 1000);
 
         if(secondsLeft < 0){
-            clearInterval(countdown);
             playAlarm(currentTimer);
+            if(SettingsDefaults.autoLoop){
+                if( LoopQueue[indexLoop] == currentTimer.tag ){
+                    indexLoop++;
+                    
+                    if(indexLoop >= SettingsDefaults.numTimers){
+                        resetLoopIndex();
+                        
+                    }
+                    
+                    var Namenew = LoopQueue[indexLoop];
+                    
+                    var TimeOBjNew = Timers.find(function(obj) { return obj.tag === `${Namenew}`});
+                    timeSet(TimeOBjNew.index);
+                    
+                }
+                else{
+                    resetLoopIndex();
+                    timeSet(0);
+                    
+                }
+                // set label function 
+                updateLoopLabel();
+            }
+            else{
+                clearInterval(countdown); 
+            }
+            
             return;
         }
 
@@ -565,6 +688,7 @@ function changeSettingsTab(){
             // display default form
             defaultForm.classList.remove('hide');
             settingsForm.classList.add('hide');
+
         }
         else{
             // display timer form and fill in info
@@ -579,6 +703,7 @@ function changeSettingsTab(){
             if(selectedTab == 4 || selectedTab == 5){
                 deleteTimer.classList.remove("btn-hidden");
             }
+            settingsNot.classList.remove("is-visible");
             switchFormValues(settingsForm, Timers[selectedTab - 1]);
         }
 
@@ -594,11 +719,23 @@ function changeSettingsTab(){
 
 
 function switchFormValues( formName, timerObject){
-
-    formName.elements.namedItem("settingsTime").value = timerObject.time;
+    var minNew =  timerObject.time;
+    if(minNew > 0){
+        formName.elements.namedItem("settingsTime").value = minNew;
+    }
+    else{
+        formName.elements.namedItem("settingsTime").value = '';
+    }
+    
     formName.elements.namedItem("settingsTag").value = timerObject.tag;
     formName.elements.namedItem("settingsDefault").checked = timerObject.defaultSound;
-
+    var secNew = timerObject.seconds;
+    if(secNew > 0){
+        formName.elements.namedItem("settingsTimeSec").value = secNew;
+    }
+    else{
+        formName.elements.namedItem("settingsTimeSec").value = '';
+    }
     
   
     settingsDisables.forEach(function(element){
@@ -627,8 +764,23 @@ function submitSettings(){
  
     if(!event.target.isValid){
         event.preventDefault();
+        var minNew = parseInt(settingsForm.elements.namedItem("settingsTime").value);
+       
+        if(minNew){
+            Timers[currentSettingTab-1].time = minNew;
+        }
+        else{
+            Timers[currentSettingTab-1].time = 0;
+        }
 
-        Timers[currentSettingTab-1].time = parseInt(settingsForm.elements.namedItem("settingsTime").value);
+        var secNew = parseInt(settingsForm.elements.namedItem("settingsTimeSec").value);
+        if(secNew){
+            Timers[currentSettingTab-1].seconds  = secNew;
+        }
+        else{
+            Timers[currentSettingTab-1].seconds  = 0;
+        }
+        console.log(Timers[currentSettingTab-1]);
         Timers[currentSettingTab-1].tag = settingsForm.elements.namedItem("settingsTag").value;
         Timers[currentSettingTab-1].defaultSound = settingsForm.elements.namedItem("settingsDefault").checked;
         Timers[currentSettingTab-1].soundType = settingsForm.elements.namedItem("settingsSound").value;
@@ -639,6 +791,7 @@ function submitSettings(){
         setTimeout(function(){
             settingsNot.classList.remove("is-visible");
         },5000);
+        saveSession();
     }
 }
 
@@ -715,7 +868,9 @@ function submitDefault(){
         setTimeout(function(){
             defaultNot.classList.remove("is-visible");
         },5000);
+        saveSession();
     }
+   
 }
 
 // 
@@ -766,4 +921,34 @@ function testSound(){
     }
     playAlarm(testSoundObj);
    return false;
+}
+
+// 
+// 
+// 
+// Save Session Section 
+// 
+// 
+// 
+
+function saveSession(){
+    sessionStorage.setItem('timers', JSON.stringify(Timers));
+    sessionStorage.setItem('settings', JSON.stringify(SettingsDefaults));
+}
+function restoreSession(){
+    console.log("here");
+    Timers = JSON.parse(sessionStorage.getItem('timers'));
+    SettingsDefaults = JSON.parse(sessionStorage.getItem('settings'));
+    initQueue();
+    // switch button labels
+    for(i = 0; i < 3; i++){
+        updateBtnDisplay(i);
+    }
+    if(Timers[3].on){
+        customSelected = 3;
+        updateBtnDisplay(3);
+    }
+    if(Timers[4].on){
+        updateBtnDisplay(4);
+    }
 }
