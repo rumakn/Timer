@@ -11,14 +11,16 @@ let countdown; /* holds the interval timer */
 var modal, closeBtn, btnModalSave, btnModalReset, btnModalCancel;
 var modalTime, modalTag, modalDefault, modalSound, modalVolume, defaultCheckMod;
 let Timers;
-let SettingsDefaults;
+let settingsDefaults;
 var customSelected, customForm;
 var buttonsTime, settingsTabs;
 var currentSettingTab, settingsForm, defaultForm;
 var deleteTimer, settingsDisables, defaultCheckSet, defaultReset;
 var currentTimer,btnsSoundTest;
 var navbar,yoff;
-var LoopQueue, LoopNum, indexLoop , LoopLabel;
+var loopQueue, loopNum, indexLoop , loopLabel;
+var stats, statsinfo, statsTable;
+var statToday, statWeek, statTotal, hrLabel;
 
 function init() {
     // document queries
@@ -68,6 +70,11 @@ function init() {
     defaultNot = document.querySelector("#form-settings-default > .notification");
     deleteTimer = document.querySelector("#deleteTimer");
     
+    statsTable = document.querySelector("#stats");
+    statToday = document.querySelector("#statToday");
+    statWeek = document.querySelector("#statWeek");
+    statTotal = document.querySelector("#statTotal");
+    hrLabel = document.querySelector("#HrLabel");
 
     settingsTabs = document.querySelectorAll(".SettingsTabs > button");
     
@@ -75,10 +82,11 @@ function init() {
 
     btnsSoundTest = document.querySelectorAll(".testSound");
     
-    LoopLabel = document.querySelector("#LoopLabel");
+    loopLabel = document.querySelector("#LoopLabel");
     if(sessionStorage.length == 0){
         initTimers();
         initDefaults();
+        initStats();
     }
     else{
         restoreSession();
@@ -112,7 +120,7 @@ function navSetup(){
     }
 }
 function initDefaults(){
-    SettingsDefaults = {
+    settingsDefaults = {
         soundType: "jingle",
         volume: 80,
         autoLoop: true,
@@ -120,12 +128,12 @@ function initDefaults(){
         loopQ: [
             {
                 // 0
-                timers: ["Work", "Short Break"],
+                timers: ["0", "1"],
                 repeats: 4
             },
             {
                 // 1
-                timers: ["Long Break"],
+                timers: ["2"],
                 repeats: 1
             }
         ]
@@ -136,21 +144,21 @@ function initDefaults(){
 
 function initQueue(){
     indexLoop = 0;
-    LoopQueue = [];
-    LoopNum = [];
+    loopQueue = [];
+    loopNum = [];
     var loophold = 1;
-    SettingsDefaults.loopQ.forEach(function(element){
+    settingsDefaults.loopQ.forEach(function(element){
         for(i = 0 ; i < element.repeats; i++){
-            LoopQueue.push(...element.timers);
+            loopQueue.push(...element.timers);
             for( j= 0; j < element.timers.length; j++){
-                LoopNum.push(loophold);
+                loopNum.push(loophold);
             }
             loophold ++;
         }
     });
     
-    console.log(LoopQueue);
-    console.log(LoopNum);
+    console.log(loopQueue);
+    console.log(loopNum);
 }
 function initTimers(){
     Timers = [
@@ -309,10 +317,11 @@ function closeModal(){
     modal.style.display = "none";
     resetModal();
     customSelected = 0;
+    window.location.hash= 'top';
 }
 function openModal(){
     modal.style.display = "block";
-
+    window.location.hash= 'myModal';
 
     if(closeBtn.addEventListener){
         closeBtn.addEventListener('click', closeModal);
@@ -384,8 +393,10 @@ function submitCustom(){
         Timers[customSelected].soundType = modalSound.value;
         Timers[customSelected].volume = parseInt(modalVolume.value);
 
+        
         updateBtnDisplay(customSelected);
         Timers[customSelected].on = true;
+        enableTimer(customSelected);
         saveSession();
         closeModal();
         
@@ -438,19 +449,23 @@ function resetModal(){
 
 function deleteCurrentTimer(){
     
-    if(currentSettingTab == 4){
-        buttonsTime[4].disabled = true;
-        buttonsTime[4].classList.add("btn-greyed");
-
-        settingsTabs[5].disabled = true;
-        settingsTabs[5].classList.add("btn-greyed");
+    if((currentSettingTab == 4 && settingsTabs[5].textContent === " + ") || (currentSettingTab == 5 && settingsTabs[4].textContent === " + ")){
+        
+            buttonsTime[4].disabled = true;
+            buttonsTime[4].classList.add("btn-greyed");
+    
+            settingsTabs[5].disabled = true;
+            settingsTabs[5].classList.add("btn-greyed");
+       
     }
 
     buttonsTime[currentSettingTab-1].textContent = " + ";
     settingsTabs[currentSettingTab].textContent = " + ";
     
     Timers[currentSettingTab-1].on = false;
-    settingsTabs[currentSettingTab-1].click();
+    disableTimer(currentSettingTab-1);
+    checkLoop();
+    settingsTabs[0].click();
     saveSession();
 }
 
@@ -480,7 +495,7 @@ function changeCurrentTime(){
         var index = parseInt(this.dataset.id);
         timeSet(index);
         if(currentTimer.tag !== "Work"){
-            setLoopLabel(currentTimer.tag);
+            setloopLabel(currentTimer.tag);
         }
         else{
             resetLoopIndex();
@@ -539,17 +554,17 @@ function switchTitle(selectedButton){
 // 
 // 
 // 
-function setLoopLabel(Labelnew){
-    LoopLabel.textContent = Labelnew;
+function setloopLabel(Labelnew){
+    loopLabel.textContent = Labelnew;
 }
-function updateLoopLabel(){
+function updateloopLabel(){
 
-    LoopLabel.textContent = "Loop : # " + LoopNum[indexLoop] + " " + LoopQueue[indexLoop];
+    loopLabel.textContent = "Loop : # " + loopNum[indexLoop] + " " + Timers[loopQueue[indexLoop]].tag;
 
 }
 function resetLoopIndex(){
 indexLoop = 0;
-updateLoopLabel();
+updateloopLabel();
 }
 function timerFunc(seconds) {
     clearInterval(countdown);
@@ -562,18 +577,26 @@ function timerFunc(seconds) {
 
         if(secondsLeft < 0){
             playAlarm(currentTimer);
-            if(SettingsDefaults.autoLoop){
-                if( LoopQueue[indexLoop] == currentTimer.tag ){
+            
+            var finTimer = addToStats(currentTimer.index);
+            saveStats();
+            addToTable(finTimer);
+            
+
+
+            if(settingsDefaults.autoLoop){
+
+                if( loopQueue[indexLoop] == currentTimer.index ){
                     indexLoop++;
                     
-                    if(indexLoop >= SettingsDefaults.numTimers){
+                    if(indexLoop >= settingsDefaults.numTimers){
                         resetLoopIndex();
                         
                     }
                     
-                    var Namenew = LoopQueue[indexLoop];
+                    var indexNew = loopQueue[indexLoop];
                     
-                    var TimeOBjNew = Timers.find(function(obj) { return obj.tag === `${Namenew}`});
+                    var TimeOBjNew = Timers[indexNew];
                     timeSet(TimeOBjNew.index);
                     
                 }
@@ -583,7 +606,7 @@ function timerFunc(seconds) {
                     
                 }
                 // set label function 
-                updateLoopLabel();
+                updateloopLabel();
             }
             else{
                 clearInterval(countdown); 
@@ -648,14 +671,17 @@ function resetTimer(){
 
 function displayTimeFormat(seconds){
     currentTime = seconds;
-    console.log(currentTime);
-    const minutes = Math.floor ( seconds / 60 );
-    const remainderSeconds = seconds % 60;
-    const display = `${minutes}:${remainderSeconds < 10 ? '0' : ''}${remainderSeconds}`;
+   
+    const display = getFormattedTime(seconds);
     timer.textContent =  display;
     document.title = display;
 } 
 
+function getFormattedTime(seconds){
+    const minutes = Math.floor ( seconds / 60 );
+    const remainderSeconds = seconds % 60;
+    return `${minutes}:${remainderSeconds < 10 ? '0' : ''}${remainderSeconds}`;
+}
 // 
 // 
 // 
@@ -839,30 +865,78 @@ function resetDefault(){
 }
 
 function fillDefault(){
-    switchAlerts(defaultForm, SettingsDefaults);
-    defaultForm.elements.namedItem("autoLoop").checked = SettingsDefaults.autoLoop;
+    switchAlerts(defaultForm, settingsDefaults);
+    defaultForm.elements.namedItem("autoLoop").checked = settingsDefaults.autoLoop;
     fillLoopSetup();
+
+    
 }
 
 function fillLoopSetup(){
-    // fill in html with the default loops
-    // for each in array loopQ
-    // make group object html 
-    // fill in data 
-    // append in loop setup 
+    
+    defaultForm.elements.namedItem("loopdrops_1").value = settingsDefaults.loopQ[0].timers[0];
+    defaultForm.elements.namedItem("loopdrops_2").value = settingsDefaults.loopQ[0].timers[1];
+    defaultForm.elements.namedItem("loopdrops_3").value = settingsDefaults.loopQ[1].timers[0];
 
+    if(Timers[3].on){
+        enableTimer(3);
+    }
+    else{
+        disableTimer(3);
+    }
+    if(Timers[4].on){
+        enableTimer(4);
+    }
+    else{
+        disableTimer(4);
+    }
 }
 
+function checkLoop(){
+    var temp = defaultForm.elements.namedItem("loopdrops_1").value;
+    console.log(temp);
+    if(  !Timers[temp].on  ){
+        defaultForm.elements.namedItem("loopdrops_1").value = "0";
+    }
+
+    temp = defaultForm.elements.namedItem("loopdrops_2").value;
+    if(  !Timers[temp].on  ){
+        defaultForm.elements.namedItem("loopdrops_2").value = "1";
+    }
+    
+    temp = defaultForm.elements.namedItem("loopdrops_3").value;
+    if(  !Timers[temp].on ){
+        defaultForm.elements.namedItem("loopdrops_3").value = "2";
+    }
+    submitDefault();
+}
+function enableTimer(num){
+    defaultForm.elements.namedItem("loopdrops_1").options[num].disabled = false;
+    defaultForm.elements.namedItem("loopdrops_2").options[num].disabled = false;
+    defaultForm.elements.namedItem("loopdrops_3").options[num].disabled = false;
+}
+function disableTimer(num){
+    defaultForm.elements.namedItem("loopdrops_1").options[num].disabled = true;
+    defaultForm.elements.namedItem("loopdrops_2").options[num].disabled = true;
+    defaultForm.elements.namedItem("loopdrops_3").options[num].disabled = true;
+}
 function submitDefault(){
     if(!event.target.isValid){
         event.preventDefault();
 
         
         
-        SettingsDefaults.soundType = defaultForm.elements.namedItem("settingsSound").value;
-        SettingsDefaults.volume = defaultForm.elements.namedItem("settingsVolume").value;
+        settingsDefaults.soundType = defaultForm.elements.namedItem("settingsSound").value;
+        settingsDefaults.volume = defaultForm.elements.namedItem("settingsVolume").value;
 
-        SettingsDefaults.autoLoop = defaultForm.elements.namedItem("autoLoop").checked;
+        settingsDefaults.autoLoop = defaultForm.elements.namedItem("autoLoop").checked;
+
+        Timers[defaultForm.elements.namedItem("loopdrops_1").value].tag;
+
+
+        settingsDefaults.loopQ[0].timers[0] = defaultForm.elements.namedItem("loopdrops_1").value;
+        settingsDefaults.loopQ[0].timers[1] = defaultForm.elements.namedItem("loopdrops_2").value;
+        settingsDefaults.loopQ[1].timers[0] = defaultForm.elements.namedItem("loopdrops_3").value;
 
         defaultNot.classList.add("is-visible");
         setTimeout(function(){
@@ -872,6 +946,7 @@ function submitDefault(){
     }
    
 }
+
 
 // 
 // 
@@ -884,8 +959,8 @@ function submitDefault(){
 function playAlarm(timerObj){
     var audio;
     if(timerObj.defaultSound == true){
-        audio = document.querySelector(`audio[data-sound = "${SettingsDefaults.soundType}"]`);
-        audio.volume = SettingsDefaults.volume / 100;
+        audio = document.querySelector(`audio[data-sound = "${settingsDefaults.soundType}"]`);
+        audio.volume = settingsDefaults.volume / 100;
     }
     else{
         audio = document.querySelector(`audio[data-sound = "${timerObj.soundType}"]`);
@@ -926,19 +1001,20 @@ function testSound(){
 // 
 // 
 // 
-// Save Session Section 
+// Session Section 
 // 
 // 
 // 
 
 function saveSession(){
     sessionStorage.setItem('timers', JSON.stringify(Timers));
-    sessionStorage.setItem('settings', JSON.stringify(SettingsDefaults));
+    sessionStorage.setItem('settings', JSON.stringify(settingsDefaults));
 }
 function restoreSession(){
     console.log("here");
     Timers = JSON.parse(sessionStorage.getItem('timers'));
-    SettingsDefaults = JSON.parse(sessionStorage.getItem('settings'));
+    settingsDefaults = JSON.parse(sessionStorage.getItem('settings'));
+    loadStats();
     initQueue();
     // switch button labels
     for(i = 0; i < 3; i++){
@@ -951,4 +1027,140 @@ function restoreSession(){
     if(Timers[4].on){
         updateBtnDisplay(4);
     }
+    fillDefault();
+}
+
+
+
+
+// 
+// 
+// 
+// Stats Section 
+// 
+// 
+// 
+function initStats(){
+    stats = [];
+    statsinfo = { /* will hold today, weekstart, total  */
+        total : 0,
+        todayTotal : 0,
+        weekTotal : 0,
+        num : 1
+    };
+    createToday();
+    createWeekStart();
+}
+
+function addToStats(ind){
+    var finTimer = {};
+    finTimer.date = new Date();
+    finTimer.tag = Timers[ind].tag;
+    finTimer.time = (Timers[ind].time * 60 ) + Timers[ind].seconds;
+    stats.push(finTimer);
+
+    //check if work timer
+    if(ind == 0){
+
+        addTotals(ind, finTimer);
+   
+
+    } 
+
+    
+
+    return finTimer;
+}
+
+function saveStats(){
+    sessionStorage.setItem('stats', JSON.stringify(stats));
+    sessionStorage.setItem('statsinfo', JSON.stringify(statsinfo));
+}
+function loadStats(){
+    stats = JSON.parse(sessionStorage.getItem('stats'));
+    statsinfo = JSON.parse(sessionStorage.getItem('statsinfo'));
+    // add all to table
+    statsinfo.today = new Date(statsinfo.today);
+    statsinfo.week = new Date(statsinfo.week);
+
+    statsinfo.num = 1;
+    for( i = 0; i < stats.length; i++){
+        stats[i].date = new Date(stats[i].date);
+        addToTable(stats[i]);
+    }
+    updateStatDisplay();
+}
+function addToTable(finishedTimer){
+    console.log(statsinfo.num);
+    var row = statsTable.insertRow(statsinfo.num);
+    statsinfo.num ++;
+
+
+    console.log(finishedTimer);
+    
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+
+    cell1.innerHTML = (finishedTimer.date.getMonth() + 1) + "/" + finishedTimer.date.getDate() + "/" + finishedTimer.date.getFullYear(); /* edit to show time in 12/12/12 format */
+    cell2.innerHTML = finishedTimer.tag; 
+    cell3.innerHTML = getFormattedTime(finishedTimer.time); /* edit to show min : seconds */
+   
+
+    // get totals in DOM
+}
+
+function createToday(){
+
+    statsinfo.today = new Date();
+
+}
+
+function createWeekStart(){
+    var tod = statsinfo.today;
+    var shift = tod.getDay();
+   
+    statsinfo.week = new Date(tod.getYear(), tod.getMonth(), tod.getDate() - shift );
+}
+
+function addTotals(ind, finTimer){
+    var compare = finTimer.date;
+    
+    // check if timer finished in the same day as stored today - update day total 
+    if( compareDay(compare, statsinfo.today )){
+        statsinfo.todayTotal += finTimer.time;
+    }
+    else{
+        createToday();
+        statsinfo.todayTotal = finTimer.time;
+    }
+    // check if timer finished in the same day as stored today - update week total
+    if( compareDay(compare, statsinfo.week )){
+        statsinfo.weekTotal += finTimer.time;
+    }
+    else{
+        createToday();
+        statsinfo.weekTotal = finTimer.time;
+    }
+
+    statsinfo.total += finTimer.time;
+
+    updateStatDisplay();
+
+   
+}
+
+function compareDay(day1, day2){
+    return day1.getFullYear() === day2.getFullYear() &&
+    day1.getMonth() === day2.getMonth() &&
+    day1.getDate() === day2.getDate();
+}
+
+function updateStatDisplay(){
+// update under timer widget 
+// update under stat title
+    statToday.textContent = "Time Worked Today: " + getFormattedTime ( statsinfo.todayTotal );
+    statWeek.textContent = "Time Worked This Week: " + getFormattedTime ( statsinfo.todayTotal );
+    statTotal.textContent = "Total Time Worked: " + getFormattedTime ( statsinfo.todayTotal );
+    hrLabel.textContent = "Time Worked Today: " + getFormattedTime ( statsinfo.todayTotal );
 }

@@ -5,6 +5,8 @@ $pink: #BA6A74 !default;
 $grey: #D3C4D6 !default;
 $transparent-black: rgba(0,0,0,0.6) !default; 
 $purple-grey: #7D7D7D;
+$pink-transp: rgba(186, 106, 115, 0.151);
+$dark-pink: rgb(155, 88, 96);
 
 $text-color: $light-grey !default;
 $background: $light-grey !default;
@@ -22,8 +24,8 @@ $html-back: $medium-grey;
 $dark-text: $pink;
 $dark-back : $pink;
 $highlight-color: $pink;
-
-
+$highlight-color-transp: $pink-transp;
+$darken-highlight: $dark-pink;
 
 $break-1 : 48em !default;
 $gutter: 20px;

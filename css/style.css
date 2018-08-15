@@ -371,6 +371,11 @@ textarea {
   opacity: .4;
   cursor: default !important; }
 
+*:focus {
+  outline: 3px solid;
+  outline-color: #BA6A74;
+  background-color: rgba(186, 106, 115, 0.151); }
+
 html {
   width: 100%;
   box-sizing: border-box;
@@ -442,7 +447,7 @@ a:hover {
   .flex-settings > li > label + *, .flex-settings > li select {
     flex: 3 0 10%;
     max-width: 400px; }
-  .flex-settings > li .colon {
+  .flex-settings > li .mid-text {
     padding: 0px 10px; }
   .flex-settings > li > label + button {
     max-width: 200px; }
@@ -527,8 +532,6 @@ form.hide {
   font-size: 1.2em;
   font-weight: bold;
   border-radius: 4px; }
-  .btn:focus {
-    outline: 0; }
   .btn:not(:disabled) {
     cursor: pointer; }
 
@@ -573,6 +576,9 @@ form.hide {
 .btn-tab-select {
   background: #BA6A74;
   color: #F2F2F2; }
+  .btn-tab-select:focus {
+    outline: none;
+    background: #9b5860; }
 
 .btn-hidden {
   display: none; }
@@ -661,7 +667,8 @@ form.hide {
 
 .nav > ul > li a:hover,
 .nav > ul > li a:focus {
-  color: #BA6A74; }
+  color: #BA6A74;
+  outline: none; }
 
 .modal {
   display: none;
@@ -750,6 +757,9 @@ input {
   input[type=checkbox] {
     display: inline-block;
     width: auto; }
+  input[type=range]:focus {
+    outline: none;
+    background: rgba(186, 106, 115, 0.151); }
 
 select {
   width: 100%;
@@ -786,3 +796,25 @@ fieldset {
 
 .notification.is-visible {
   opacity: 1; }
+
+thead, tbody, tr {
+  width: 100%; }
+
+table, th, td {
+  border: 1px solid rgba(186, 106, 115, 0.151); }
+
+table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 80%;
+  margin: auto; }
+
+th {
+  background: rgba(186, 106, 115, 0.151);
+  padding: 10px 0px; }
+
+td {
+  padding: 5px 0px; }
+
+.table-half {
+  width: 50%; }

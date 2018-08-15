@@ -16,7 +16,12 @@ input{
      display:inline-block;
      width:auto;
  }  
-
+&[type = range]{
+    &:focus{
+        outline:none;
+        background: $highlight-color-transp;
+    }
+}
 }
 
 select{

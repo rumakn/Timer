@@ -4,6 +4,12 @@
     cursor: default !important;
 }
 
+*:focus{
+    outline: 3px solid;
+    outline-color: $highlight-color;
+    background-color: $highlight-color-transp;
+}
+
 // change everything to border-box
 html{
     width: 100%;

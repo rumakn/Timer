@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html id="top">
 
     <head>
         <meta charset="utf-8" />
@@ -10,7 +10,7 @@
         <script src="script/script.js"></script>
     </head>
 
-    <body id="top" class="background-main">
+    <body class="background-main">
         <header>
             <!-- <div class = "container"> -->
             <!-- nav bar for mobile -->
@@ -135,6 +135,37 @@
                                             <label for="autoLoop"> auto loop? </label>
                                             <input type="checkbox" name="autoLoop" id="autoLoopCheck" checked/>
                                         </li>
+                                        <li>
+                                            <label for="loopdrops"> Pomodoro Timers <br>(4 Loops)</label>
+                                            <div class="flex-contain">
+                                                <select name="loopdrops_1" >
+                                                    <option selected="selected"value="0">Work</option>
+                                                    <option value="1">Short Break</option>
+                                                    <option value="2">Long Break</option>
+                                                    <option value="3" disabled>Custom 1</option>
+                                                    <option value="4" disabled >Custom 2</option>
+                                                    
+                                                </select>
+                                                <h2 class="mid-text"> + </h2>
+                                                <select name="loopdrops_2" >
+                                                    <option value="0">Work</option>
+                                                    <option selected="selected" value="1">Short Break</option>
+                                                    <option value="2">Long Break</option>
+                                                    <option value="3" disabled>Custom 1</option>
+                                                    <option value="4" disabled>Custom 2</option>
+                                                </select>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <label> + End Timer <br>(1 Loop) </label>
+                                            <select name="loopdrops_3">
+                                                <option value="0">Work</option>
+                                                <option value="1">Short Break</option>
+                                                <option selected="selected" value="2">Long Break</option>
+                                                <option value="3" disabled>Custom 1</option>
+                                                <option value="4" disabled>Custom 2</option>
+                                            </select>
+                                        </li>
                                     </ul>
                                     
 
@@ -162,7 +193,7 @@
                                                 <label for="settingsTime">time</label>
                                                 <div class="flex-contain">
                                                     <input type="number" placeholder="minutes" min="1" step="1" max="60" name="settingsTime" id="settingsTime" autocomplete="off" autofocus value="25" />
-                                                    <p class="colon" > : </p>
+                                                    <p class="mid-text" > : </p>
                                                     <input type="number" placeholder="seconds" min="1" step="1" max="60" name="settingsTimeSec" class="settingsTimeSec" autocomplete="off" autofocus />
                                                 </div>
                                             </li>
@@ -267,11 +298,27 @@
             <section class = "container">
                     <div class=" widget widget-light" id="statsWidget">
                         <h2> Statistics </h2>
-                            <!-- loops worked :   -->
-                            <!-- hours worked : -->
-                            <!-- sort by type of timer -->
-                            <!-- table with history -->
-                            <!-- only save history for a week or so (maybe drop down) -->
+                        <div class="widget-light flex-contain">
+                            <h4 id = "statToday" class = "flex-half-left"> Time Worked Today: 0 mins</h4>
+                            <h4 id = "statWeek" class ="flex-half-left"> Time Worked This Week: 0 mins</h4>
+                            <h4 id = "statTotal" class ="flex-half-left"> Total Time Worked: 0 mins</h4>
+                        </div>
+                        <br>
+                        <div class="widget-light">
+                            <table id="stats">
+                                <thead>
+                                    <tr>
+                                        <th class=""> Date </th>
+                                        <th class="table-half"> Timer Type</th> 
+                                        <th class=""> Time </th>
+                                    </tr>
+                                </thead>   
+                                <tbody>
+                                    
+                                </tbody> 
+                            </table>
+
+                    </div>
 
                     </div>
             <!-- History Section -->
