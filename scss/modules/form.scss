@@ -1,6 +1,38 @@
+// 
+// 
+//   Forms
+// 
+// 
+// 
 form{
     text-align:left;
 }
+.form-settings{
+    width: 70%;
+    display:inline-block;
+}
+
+// 
+// 
+//   Sections of Form
+// 
+// 
+// 
+legend{
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-left: 20px;
+    padding: 0px 10px;
+}
+fieldset{
+    margin: 0px 0px 20px 0px;
+}
+// 
+// 
+//   Input Types
+// 
+// 
+// 
 input{
     width:100%;
     // display:block;
@@ -33,17 +65,4 @@ select{
     width:50%;
     }
 }
-.form-settings{
-    width: 70%;
-    display:inline-block;
-}
 
-legend{
-    font-weight: bold;
-    font-size: 1.1em;
-    margin-left: 20px;
-    padding: 0px 10px;
-}
-fieldset{
-    margin: 0px 0px 20px 0px;
-}

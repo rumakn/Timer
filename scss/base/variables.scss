@@ -1,32 +1,67 @@
+// 
+// 
+//  All Variables 
+// 
+// 
+
+// 
+// 
+//   Colors
+// 
+// 
 $light-grey: #F2F2F2 !default;
 $medium-grey: #E8E5E5 !default;
 $dark-grey: #4A484C !default;
 $pink: #BA6A74 !default;
 $grey: #D3C4D6 !default;
 $transparent-black: rgba(0,0,0,0.6) !default; 
-$purple-grey: #7D7D7D;
 $pink-transp: rgba(186, 106, 115, 0.151);
 $dark-pink: rgb(155, 88, 96);
 
-$text-color: $light-grey !default;
-$background: $light-grey !default;
-$background-image: url("../images/bg.jpeg");
 
-$widget-back: $transparent-black !default;
-$timer-change-button : $light-grey !default;
-$button-greyed : $grey !default;
-$modal-background: $transparent-black !default;
-$modal-content: $light-grey;
-$modal-text:$pink;
-$body-text: $dark-grey;
-$nav-text: $dark-grey;
-$html-back: $medium-grey;
-$dark-text: $pink;
-$dark-back : $pink;
-$highlight-color: $pink;
-$highlight-color-transp: $pink-transp;
-$darken-highlight: $dark-pink;
+// 
+// 
+//   Text
+// 
+// 
+// 
+$text-color: $light-grey !default; /* default text color */
+$nav-text: $dark-grey; /* base nav text color */
+$body-text: $dark-grey; /* light background normal text */
+$modal-text:$pink; /* Header Modal Text */
 
+// 
+//   Backgrounds
+// 
+// 
+$html-back: $medium-grey; /* background of site */
+$background: $light-grey !default; /* background of body content */
+$background-image: url("../images/bg.jpeg"); /* image for timer */
+$widget-back: $transparent-black !default; /* background of timer section if image fails */
+$modal-background: $transparent-black !default; /* around modal background */
+$modal-content: $light-grey; /* background for header and footer */
+$dark-back : $pink; /* dark background sections and notification alerts */
+// 
+// 
+//   Highlights Colors
+// 
+// 
+$highlight-color: $pink; /* main highlight color */
+$highlight-color-transp: $pink-transp; /* transparent version */
+$darken-highlight: $dark-pink; /* darker version of highlight */
+// 
+// 
+//   Buttons 
+// 
+// 
+$timer-change-button : $light-grey !default; /* light buttons */
+$button-greyed : $grey !default; /* greyed button */
+$dark-text: $pink; /* button inner text */
+// 
+// 
+//  Layout 
+// 
+// 
 $break-1 : 48em !default;
 $gutter: 20px;
 $margin-gutter : ($gutter / 2);

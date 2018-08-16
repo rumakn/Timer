@@ -1,3 +1,9 @@
+// 
+// 
+//   Nav Bar
+// 
+// 
+// 
 .nav{
     
    
@@ -11,24 +17,7 @@
     }
     
 }
-.sticky{
-    background:$html-back;
-    margin: 0px 0px;
-    position: fixed;
-    top:0;
-    width:100%;
-}
 
-.sticky + main{
-    padding-top: 128px;
-}
-.sticky nav{
-    margin:0px;
-    & > ul {
-        padding: 10px 0px;
-    }
-    
-}
 .nav > ul > li {
     flex: 1 1 100px;
     max-width: 100px;
@@ -52,3 +41,28 @@
   color: $highlight-color;
   outline: none;
   }
+
+// 
+// 
+//   Sticky Nav Bar
+// 
+// 
+// 
+.sticky{
+    background:$html-back;
+    margin: 0px 0px;
+    position: fixed;
+    top:0;
+    width:100%;
+}
+
+.sticky + main{
+    padding-top: 128px;
+}
+.sticky nav{
+    margin:0px;
+    & > ul {
+        padding: 10px 0px;
+    }
+    
+}

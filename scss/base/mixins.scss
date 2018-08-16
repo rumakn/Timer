@@ -1,9 +1,0 @@
-
-
-@mixin set-bg-image($bg-url){
-    background: $bg-url no-repeat center center fixed; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-}

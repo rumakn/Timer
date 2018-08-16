@@ -1,3 +1,10 @@
+// 
+// 
+//   Buttons
+// 
+// 
+// 
+
 .btn{
     
     display:inline-block;
@@ -14,6 +21,12 @@
     }
 }
 
+// 
+// 
+//   Button Base Colors
+// 
+// 
+// 
 .btn-light{   
     background: none;
     color: $text-color;
@@ -29,6 +42,13 @@
     cursor: default;
 }
 
+// 
+// 
+//   Button Types
+// 
+// 
+// 
+/* start and reset */
 .btn-control{
     margin-left:auto;
     margin-right:auto;
@@ -58,6 +78,13 @@
     }
 }
 
+
+// 
+// 
+//   Special State Buttons
+// 
+// 
+// 
 .btn-tab-select{
     background:$dark-text;
     color:$text-color;

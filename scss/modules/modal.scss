@@ -1,3 +1,9 @@
+// 
+// 
+//   Modal
+// 
+// 
+// 
 .modal{
     display: none; /* hidden modal by defualt */
     position:fixed; /* fixed location */
@@ -11,7 +17,12 @@
     text-align: center;
     
 }
-
+// 
+// 
+//   Sections of Modal
+// 
+// 
+// 
 
 /* Modal Header */
 .modal-header {
@@ -56,14 +67,26 @@
         width: 65%;
     }
 }
-
-/* Add Animation */
+// 
+// 
+//   Animation
+// 
+// 
+// 
+/* Add Animation From Top */
 @keyframes animatetop {
     from {top: -300px; opacity: 0}
     to {top: 0; opacity: 1}
 }
 
+// 
+// 
+//   Close Button
+// 
+// 
+// 
 
+/* Close Button */
 .close{
     color: $grey;
     float:right;

@@ -1,3 +1,9 @@
+// 
+// 
+//   Table
+// 
+// 
+// 
 thead,tbody,tr{
     width:100%;
 }
@@ -19,6 +25,7 @@ th{
 td{
     padding: 5px 0px;
 }
+// make a column size half the table
 .table-half{
     width:(100% / 2);
 }

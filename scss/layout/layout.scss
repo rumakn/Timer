@@ -1,3 +1,16 @@
+// 
+// 
+//   Layout
+// 
+// 
+// 
+
+// 
+// 
+//   Containers
+// 
+// 
+// 
 .container{
     padding: 20px 20px;
     margin-left:auto;
@@ -7,6 +20,29 @@
         background: $background;
     }
 }
+.TabContainer{
+    display:flex;
+    
+    justify-content: center;
+    flex-flow : row wrap;
+}
+.full-container{
+    width: 50%;
+    margin: auto;
+}
+.flex-contain{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 10px 0px;
+    
+}
+// 
+// 
+//   Flex Layouts
+// 
+// 
+// 
 [class*= 'flex-half' ]{
     flex: 1 1 100%;
     width: 100%;
@@ -20,13 +56,7 @@
 .flex-half-right{
     text-align: right;
 }
-.flex-contain{
-    display:flex;
-    flex-direction: row;
-    justify-content: center;
-    padding: 10px 0px;
-    
-}
+
 .flex-stack{
     @include small-media{
         flex-wrap: wrap;
@@ -72,10 +102,13 @@
         }
     }
 }
+// 
+// 
+//   Row and Columns
+// 
+// 
+// 
 
-.bottom-pad{
-    padding-bottom: 120px;
-}
 /* Row */
 .row {
     margin-right: (-$margin-gutter);
@@ -103,36 +136,6 @@
     width:(100% / 5);
 }
 
-@include medium-and-above{
-    .col-1-3{
-        width: (100% / 3);
-    }
-}
-
-.SettingsTabs {
-    margin: 0px 15px;
-    width:auto;
-    > button{
-        display:block;
-        width:100%;
-        margin:10px;
-    }
-}
-.TabContainer{
-    display:flex;
-    
-    justify-content: center;
-    flex-flow : row wrap;
-}
-form.hide{
-    display:none !important;
-}
-
-.full-container{
-    width: 50%;
-    margin: auto;
-}
-
 .col-group{
     
     width:auto;
@@ -153,4 +156,32 @@ form.hide{
         }
     }
     
+}
+
+@include medium-and-above{
+    .col-1-3{
+        width: (100% / 3);
+    }
+}
+// 
+// 
+//   Tabs, forms, padding
+// 
+// 
+// 
+.SettingsTabs {
+    margin: 0px 15px;
+    width:auto;
+    > button{
+        display:block;
+        width:100%;
+        margin:10px;
+    }
+}
+
+form.hide{
+    display:none !important;
+}
+.bottom-pad{
+    padding-bottom: 120px;
 }

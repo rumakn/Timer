@@ -1,3 +1,9 @@
+// 
+// 
+//   Widgets
+// 
+// 
+// 
 .widget{
     
     text-align:center;
@@ -7,22 +13,22 @@
 .widget-title{
     font-family: 'Roboto Mono', monospace;
 }
-
-.widget-light{
-    color: $body-text;
-}
-.widget-dark{
-    background: $dark-back;
-    border-radius:5px;
-    font-size: 1.2em;
-   
-}
 .about{
     text-align: left;
     padding: 0px 50px;
 }
 
-.darken-back{
+// 
+// 
+//   Colors
+// 
+// 
+// 
+.widget-light{
+    color: $body-text;
+}
+
+.widget-dark{
     background: $dark-back;
     padding: 20px;
     @include medium-and-above{
@@ -30,3 +36,5 @@
     }
    
 }
+
+

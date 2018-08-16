@@ -12,8 +12,7 @@
 
     <body class="background-main">
         <header>
-            <!-- <div class = "container"> -->
-            <!-- nav bar for mobile -->
+            <!-- navigation -->
                 <nav class = "nav">
                     <ul>
                         <li> <a href="#top" class="btn btn-nav" > Timer</a></li>
@@ -22,14 +21,15 @@
                         <li> <a href="#" class="btn btn-nav" > Stats</a></li>
                     </ul>
                 </nav>
-            <!-- </div> -->
+           
         </header>
 
         <main>
-            
+            <!-- section with countdown, quick select times, play, pause, reset  -->
             <section class = "container">
                 
                 <div class=" widget" id="timerWidget">
+                    <!-- area for quick select times -->
                     <div class ="flex-contain bottom-pad">
                         <button id= "btn-work" data-id="0" class="btn btn-light btn-second"> 25 min</button>
                
@@ -42,14 +42,15 @@
                         <button id= "btn-cust-2" data-id="4" class="btn btn-light btn-greyed btn-second " disabled> + </button>
                     </div>
                     
-
+                    <!-- header for type of timer -->
                     <h2 class="widget-title"> Start Timer! </h2>
                     
-                    
+                    <!-- countdown -->
                     <h1 id ="timer">
                         25:00
                     </h1>
                     
+                    <!-- control countdown : play, pause, reset -->
                     <div class="row">
                         <div class="col-1-3">
                                 <button id="btn-start" class="btn btn-control btn-light"> Start </button>
@@ -60,7 +61,7 @@
                         
                     </div>
                 </div>
-
+                <!-- below countdown widget, stat peak -->
                 <div class="widget-light flex-contain">
                     <h4 id = "LoopLabel" class = "flex-half-left"> Loop : # 1 Work</h4>
                     <h4 id = "HrLabel" class ="flex-half-right"> Time Worked Today: 0 mins</h4>
@@ -68,16 +69,12 @@
                 </div>
             </section>
 
-            <!-- Timer section -->
-            <section class = "container">
-                <div class = " widget">
-                        
-                </div>
-        </section>
-        
+            
+            <!-- section for settings -->
             <section class = "container">
                 <div class=" widget widget-light" id="settingsWidget">
                     <h2> Settings </h2>
+                    <!-- tab to different timer settings -->
                     <div class="TabContainer">
                         <div class="SettingsTabs">
                             <button id="DefaultTab"class="btn btn-tab btn-tab-select"> Defaults</button>
@@ -90,8 +87,8 @@
                         
                             <form name ="form_settings_default" id = "form-settings-default" class="form-settings flex-settings">
                                     
-
-                               <fieldset>
+                            <!-- Default Settings Form -->
+                            <fieldset>
                                     
                                     <legend>
                                         Alerts
@@ -136,6 +133,7 @@
                                             <input type="checkbox" name="autoLoop" id="autoLoopCheck" checked/>
                                         </li>
                                         <li>
+                                            <!-- customize loop timers form -->
                                             <label for="loopdrops"> Pomodoro Timers <br>(4 Loops)</label>
                                             <div class="flex-contain">
                                                 <select name="loopdrops_1" >
@@ -171,6 +169,7 @@
 
                                 </fieldset>
 
+                                <!-- save timer and notification that saved -->
                                 <div class = "flex-contain full-container">
                                     
                                     <button id="saveDefault" class="btn btn-second btn-dark"> Save </button>
@@ -182,6 +181,7 @@
                             
                             </form>
 
+                            <!-- Settings for Different Quick Timers -->
                             <form name ="form_settings" id = "form-settings" class="form-settings hide ">
                                 
                                     <fieldset>
@@ -241,6 +241,8 @@
                                             </li>
                                         </ul>
                                     </fieldset>
+
+                                    <!-- submit, reset and delete timer buttons -->
                                     <div class = "flex-contain full-container">
                                     
                                         <button id="saveSettings" class="btn btn-second btn-dark"> Save </button>
@@ -248,6 +250,7 @@
                                         <button type="button" id="deleteTimer" class="btn btn-second btn-dark btn-hidden"> Delete </button>
                                         
                                     </div>
+                                    <!-- notification that saved -->
                                     <div class="notification" >
                                         <h3> Saved Settings! </h3>
                                     </div> 
@@ -264,9 +267,10 @@
                 <div class=" widget widget-light" id="aboutWidget">
                     <h2> POMODORO TECHNIQUE </h2>
                     <p> Increase your producticity by following this simple schedule!</p>
-                    <div class = "flex-stack flex-contain darken-back">
+                    <!-- Graphic of Pomodoro Technique -->
+                    <div class = "flex-stack flex-contain widget-dark">
 
-                        <!-- add image of loop here -->
+                        
                         <div class = "col-group">
                             
                             <img src ="images/4loop.svg" alt="work graphic" >
@@ -277,6 +281,8 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Description -->
                 <div class = "widget widget-light">
                         
                         <h2> About </h2>
@@ -295,6 +301,9 @@
                             You can also edit the loop so that you create your own schedule that works best for you.
                         </p>
                     </div></div>
+                </section>
+
+                <!-- Stats Section -->
             <section class = "container">
                     <div class=" widget widget-light" id="statsWidget">
                         <h2> Statistics </h2>
@@ -322,8 +331,9 @@
 
                     </div>
             <!-- History Section -->
-            <section>
+            </section>
 
+            <!-- Section containing Modal Pop up -->
             </section>
             <div id="myModal" class="modal">
                 <!-- Modal content -->
@@ -332,6 +342,8 @@
                         <span class="close">&times;</span>
                         <h2>New Custom Timer</h2>
                     </div>
+
+                    <!-- Form making new timer -->
                     <div class="modal-body">
                         <form id = "form-custom">
                         
@@ -404,6 +416,8 @@
                     
                 </div>
             </div>
+
+            <!-- Audio Files Used in Timer -->
             <div class = "audio">
                 <audio data-sound="bell" src = "audio/bell.mp3"></audio>
                 <audio data-sound="ding" src = "audio/ding.mp3"></audio>

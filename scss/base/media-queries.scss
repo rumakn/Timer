@@ -1,4 +1,8 @@
-
+// 
+// 
+//   Media Queries 
+// 
+// 
 @mixin small-media {
     @media only screen and (max-width: $break-1 - 0.0625){
         @content;
