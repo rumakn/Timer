@@ -13,7 +13,7 @@ pomodoro-style timer made for practice using HTML5, CSS3, SCSS, and Javascript (
 * SCSS
 * Javascript (ES6)
 * Inkscape (Graphics)
-* Krita (Photo Editing)
+* Krita (Photo Editing and App Design)
 * Photograph provided by Pexels (Krivec Ales)
 
 ---
