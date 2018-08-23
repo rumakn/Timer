@@ -2,7 +2,7 @@ Pomodoro Timer
 ============
 pomodoro-style timer made for practice using HTML5, CSS3, SCSS, and Javascript (ES6)
 
-![Pomodoro Preview](https://github.com/rumakn/Timer/tree/master/images/preview.png)
+![Pomodoro Preview](https://raw.githubusercontent.com/rumakn/Timer/master/images/preview.png)
 
 ---
 
